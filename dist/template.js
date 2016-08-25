@@ -15,18 +15,18 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const templates = {
-  sidebar: _fs2.default.readFileSync('./src/templates/sidebar.html', 'utf-8'),
-  main: _fs2.default.readFileSync('./src/templates/main.html', 'utf-8'),
-  single: _fs2.default.readFileSync('./src/templates/single.html', 'utf-8'),
-  entryloop: _fs2.default.readFileSync('./src/templates/entryloop.html', 'utf-8'),
-  categoryloop: _fs2.default.readFileSync('./src/templates/categoryloop.html', 'utf-8'),
-  tagloop: _fs2.default.readFileSync('./src/templates/tagloop.html', 'utf-8')
+  sidebar: readPartial('sidebar'),
+  main: readPartial('main'),
+  single: readPartial('single'),
+  entryloop: readPartial('entryloop'),
+  categoryloop: readPartial('categoryloop'),
+  tagloop: readPartial('tagloop')
 };
 
 exports.default = {
   top: (() => {
     _lodash2.default.templateSettings.interpolate = /<<([\s\S]+?)>>/g;
-    let template = _fs2.default.readFileSync('./src/templates/home.html', 'utf-8');
+    let template = readTemplate('home');
     try {
       while (/<<.+?>>/.test(template)) {
         template = _lodash2.default.template(template)(templates);
@@ -39,7 +39,7 @@ exports.default = {
   })(),
   entry: (() => {
     _lodash2.default.templateSettings.interpolate = /<<([\s\S]+?)>>/g;
-    let template = _fs2.default.readFileSync('./src/templates/entry.html', 'utf-8');
+    let template = readTemplate('entry');
     try {
       while (/<<.+?>>/.test(template)) {
         template = _lodash2.default.template(template)(templates);
@@ -51,3 +51,16 @@ exports.default = {
     return template;
   })()
 };
+
+
+function readPartial(filename) {
+  const partialDir = '../templates/partials';
+  const filepath = require('path').resolve(__dirname, partialDir, `${ filename }.html`);
+  return require('fs').readFileSync(filepath, 'utf-8');
+}
+
+function readTemplate(filename) {
+  const partialDir = '../templates';
+  const filepath = require('path').resolve(__dirname, partialDir, `${ filename }.html`);
+  return require('fs').readFileSync(filepath, 'utf-8');
+}

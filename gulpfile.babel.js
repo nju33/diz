@@ -4,7 +4,7 @@ import babel from 'gulp-babel';
 import rename from 'gulp-rename';
 
 {
-  const src = 'src/lib/**/*.babel.js';
+  const src = 'src/**/*.babel.js';
   const dest = 'dist/';
 
   gulp.task('babel', () => {
@@ -19,7 +19,7 @@ import rename from 'gulp-rename';
 }
 
 {
-  const src = 'src/lib/**/*.js';
+  const src = 'src/**/*.babel.js';
   gulp.task('watch', ['babel'], () => {
     gulp.watch(src, ['babel']);
   });
