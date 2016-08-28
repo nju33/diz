@@ -2,6 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 
 const templates = {
+  head: readPartial('head'),
   sidebar: readPartial('sidebar'),
   main: readPartial('main'),
   single: readPartial('single'),

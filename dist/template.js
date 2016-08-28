@@ -15,6 +15,7 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const templates = {
+  head: readPartial('head'),
   sidebar: readPartial('sidebar'),
   main: readPartial('main'),
   single: readPartial('single'),
