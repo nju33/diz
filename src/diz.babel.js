@@ -74,7 +74,7 @@ function diz(opts) {
   _.templateSettings.interpolate = /\${([\s\S]+?)}/g;
 
   try {
-    const topdata = Object.assign({}, config, {entries, opts, type: 'home'});
+    const topdata = Object.assign({}, config, {entries, opts, type: 'home', data: {}});
     const top = _.template(template.top)(topdata);
     pages.push(new File({
       cwd: process.cwd(),
@@ -82,9 +82,8 @@ function diz(opts) {
       path: '_out/index.html',
       contents: new Buffer(top)
     }));
-    console.log(top);
     _.forEach(entries, (entry, name) => {
-      const entrydata = Object.assign({}, config, {entry, opts, type: 'entry'});
+      const entrydata = Object.assign({}, config, {entry, opts, type: 'entry', data: {}});
       const en = _.template(template.entry)(entrydata);
       pages.push(new File({
         cwd: process.cwd(),
@@ -95,7 +94,7 @@ function diz(opts) {
     });
 
     _.forEach(categories, (category, name) => {
-      const categoryData = Object.assign({}, config, {entries: category}, {opts, type: 'category'});
+      const categoryData = Object.assign({}, config, {entries: category}, {opts, type: 'category', data: {}});
       const t = _.template(template.top)(categoryData);
       pages.push(new File({
         cwd: process.cwd(),
@@ -106,7 +105,7 @@ function diz(opts) {
     });
 
     _.forEach(tags, (tag, name) => {
-      const tagData = Object.assign({}, config, {entries: tag}, {opts, type: 'tag'});
+      const tagData = Object.assign({}, config, {entries: tag}, {opts, type: 'tag', data: {}});
       const t = _.template(template.top)(tagData);
       pages.push(new File({
         cwd: process.cwd(),
@@ -119,7 +118,9 @@ function diz(opts) {
     _.forEach(archives, (archive, year) => {
       if (year.startsWith('_')) {
         _.forEach(archive, (childArchive, month) => {
-          const archiveData = Object.assign({}, config, {entries: childArchive}, {opts, type: 'archive'});
+          const archiveData = Object.assign({}, config, {entries: childArchive}, {opts, type: 'archive'}, {
+            data: {year: year.slice(1), month}
+          });
           const t = _.template(template.top)(archiveData);
           pages.push(new File({
             cwd: process.cwd(),
@@ -129,7 +130,9 @@ function diz(opts) {
           }));
         });
       } else {
-        const archiveData = Object.assign({}, config, {entries: archive}, {opts, type: 'archive'});
+        const archiveData = Object.assign({}, config, {entries: archive}, {opts, type: 'archive'}, {
+          data: {year}
+        });
         const t = _.template(template.top)(archiveData);
         pages.push(new File({
           cwd: process.cwd(),

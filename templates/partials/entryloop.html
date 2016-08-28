@@ -1,3 +1,16 @@
 ;; _.forEach(entries, entry => {
- ${entry.content}
+  <archive class="entry__box">
+    <div class="entry__inner-box">
+      <header class="entry__header">
+        <div class="entry__header-inner">
+          <h1>${entry.title}</h1>
+        </div>
+      </header>
+      <div class="entry__body">
+        <div class="entry__body-inner">
+         ${entry.content}
+        </div>
+      </div>
+    </div>
+  </archive>
 ;; })
