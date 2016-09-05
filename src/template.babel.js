@@ -7,37 +7,95 @@ const templates = {
   main: readPartial('main'),
   single: readPartial('single'),
   entryloop: readPartial('entryloop'),
-  categoryloop: readPartial('categoryloop'),
-  tagloop: readPartial('tagloop')
 };
 
 export default {
-  top: (() => {
-    _.templateSettings.interpolate = /<<([\s\S]+?)>>/g
-    let template = readTemplate('home');
-    try {
-      while (/<<.+?>>/.test(template)) {
-        template = _.template(template)(templates);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    _.templateSettings.interpolate = /<%=([\s\S]+?)%>/g
-    return template;
-  })(),
-  entry: (() => {
-    _.templateSettings.interpolate = /<<([\s\S]+?)>>/g
-    let template = readTemplate('entry');
-    try {
-      while (/<<.+?>>/.test(template)) {
-        template = _.template(template)(templates);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    _.templateSettings.interpolate = /<%=([\s\S]+?)%>/g
-    return template;
-  })()
+  generateTemplates(blocks) {
+    const fullTemplates = Object.assign({}, templates, {blocks});
+
+    return {
+      home: (() => {
+        this.changeTemplateGenerator();
+        let template = readTemplate('home');
+        try {
+          while (/<<.+?>>/.test(template)) {
+            template = _.template(template)(fullTemplates);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+        this.changeDefaultGenerator();
+        return template;
+      })(),
+      entry: (() => {
+        this.changeTemplateGenerator();
+        let template = readTemplate('entry');
+        try {
+          while (/<<.+?>>/.test(template)) {
+            template = _.template(template)(fullTemplates);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+        this.changeDefaultGenerator();
+        return template;
+      })(),
+      categoryHome: (() => {
+        this.changeTemplateGenerator();
+        let template = readTemplate('category-home');
+        try {
+          while (/<<.+?>>/.test(template)) {
+            template = _.template(template)(fullTemplates);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+        this.changeDefaultGenerator();
+        return template;
+      })(),
+      categorySingle: (() => {
+        this.changeTemplateGenerator();
+        let template = readTemplate('category-single');
+        try {
+          while (/<<.+?>>/.test(template)) {
+            template = _.template(template)(fullTemplates);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+        this.changeDefaultGenerator();
+        return template;
+      })(),
+      tagHome: (() => {
+        this.changeTemplateGenerator();
+        let template = readTemplate('tag-home');
+        try {
+          while (/<<.+?>>/.test(template)) {
+            template = _.template(template)(fullTemplates);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+        this.changeDefaultGenerator();
+        return template;
+      })()
+    };
+  },
+
+  changeDefaultGenerator() {
+    _.templateSettings.escape = /<%-([\s\S]+?)%>/g
+    _.templateSettings.evaluate =/<%([\s\S]+?)%>/g
+    _.templateSettings.interpolate =/<%=([\s\S]+?)%>/g
+  },
+
+  changeTemplateGenerator() {
+    _.templateSettings.interpolate = /<<([\s\S]+?)>>/g;
+  },
+
+  changeContentGenerator() {
+    _.templateSettings.evaluate = /;;(.+)(?:;;)?\n/g;
+    _.templateSettings.interpolate = /\${([\s\S]+?)}/g;
+  }
 };
 
 function readPartial(filename) {
