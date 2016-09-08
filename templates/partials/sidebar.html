@@ -52,5 +52,22 @@
         </div>
       </section>
     ;; }
+
+    ;; if (_.overEvery([_.isObject, _.size])(relation.archives)) {
+      <section class="sidebar__section">
+        <h4 class="sidebar__headline">${_.get(message, 'archives')}</h4>
+        <div class="sidebar__inner-section">
+          <ul class="sidebar__list">
+            ;; _.forEach(relation.archives, (archives, archiveName) => {
+              <li class="sidebar__item">
+                <div class="sidebar__inner-item">
+                  <a href="/archives/${archiveName}/">${archiveName}</a>
+                </div>
+              </li>
+            ;; })
+          </ul>
+        </div>
+      </section>
+    ;; }
   </div>
 </div>

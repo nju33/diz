@@ -60,44 +60,43 @@ function diz(wd, opts) {
     }
 
     if (!nil(matter.data.date)) {
-      (d => {
-        const year = moment(d).year();
-        const month = moment(d).month();
+      (date => {
+        const year = date.year();
+        const month = date.month();
 
-        archives[year] || (() => {
+        archives[`${year}-${month}`] || (() => {
           const cloned = cloneMatter(matter);
-          _.set(archives, year, []);
-          archives[year].push(cloned);
-          _.set(archives, `_${year}`, {});
+          _.update(archives, `${year}-${month}`, value => {
+            return _.isUndefined(value) ? [cloned] : _.concat(value, [cloned]);
+          });
         })();
-
-        (key => {
-          const cloned = cloneMatter(matter);
-          _.get(archives, key) || _.set(archives, key, []);
-          _.get(archives, key).push(cloned);
-        })(`_${year}.${month}`);
-      })(matter.data.date);
+      })(moment(matter.data.date));
     }
   }
 
   let orderedEntries = entries;
   let orderedCategories = categories;
   let orderedTags = tags;
+  let orderedArchives = archives;
   if (typeof opts.orderEntries === 'function') {
     orderedEntries = opts.orderEntries(entries);
   }
-  if (typeof opts.orderedCategories === 'function') {
-    orderedCategories = opts.orderCategoreis(categories);
+  if (typeof opts.orderCategories === 'function') {
+    orderedCategories = opts.orderCategories(categories);
   }
-  if (typeof opts.orderedTags === 'function') {
+  if (typeof opts.orderTags === 'function') {
     orderedTags = opts.orderTags(tags);
+  }
+  if (typeof opts.orderArchives === 'function') {
+    orderedArchives = opts.orderArchives(archives);
   }
 
   template.changeContentGenerator();
   const renderCollection = collectRelation({
     entries: orderedEntries,
     categories: orderedCategories,
-    tags: orderedTags
+    tags: orderedTags,
+    archives: orderedArchives
   });
 
   try {
@@ -122,6 +121,13 @@ function diz(wd, opts) {
         });
         return _files;
       })())
+      // Arhives
+      .concat((() => {
+        return _.reduce(orderedArchives, (files, archives, archiveName) => {
+          return _.concat(files,
+            renderCollection('loop', 'archive', archives, {archiveName}));
+        }, []);
+      })());
 
     console.log(files);
     debugger;
@@ -157,7 +163,6 @@ function createFile(wd, data) {
     const customData = Object.assign({}, defaults, data, {
       contents: new Buffer(contents)
     });
-    debugger;
     customData.path = customData.path(pathData);
     return new File(customData);
   }
@@ -169,8 +174,7 @@ function preRender(template, wd, config, opts, message) {
     ENTRY: _.matches({label: 'entry'}),
     'CATEGORY_HOME': _.matches({label: 'categoryHome'}),
     'TAG_HOME': _.matches({label: 'tagHome'}),
-    'DATE_YEAR': _.matches({label: 'date-year'}),
-    'DATE_MONTH': _.matches({label: 'date-year'})
+    'ARCHIVE': _.matches({label: 'archive'}),
   };
 
   const matchesFile = _.cond([
@@ -186,12 +190,9 @@ function preRender(template, wd, config, opts, message) {
     [matcher.TAG_HOME, createFile.bind(null, wd, {
       path: _.template('tags/<%=tagName%>/index.html')
     })],
-    // [matcher.DATE_YEAR, createFile.bind(null, wd, {
-    //   path: _.template('archives/<%=year%>/index.html')
-    // })],
-    // [matcher.DATE_MONTH, createFile.bind(null, wd, {
-    //   path: _.template('archives/<%=year%>/<%=month%>/index.html')
-    // })]
+    [matcher.ARCHIVE, createFile.bind(null, wd, {
+      path: _.template('archives/<%=archiveName%>/index.html')
+    })],
   ]);
 
   return function collectRelation(relationData = {}) {
@@ -208,7 +209,6 @@ function preRender(template, wd, config, opts, message) {
         if (label === 'home') {
           files.push(matchesFile(data)(contents));
         } else {
-          debugger;
           files.push(matchesFile(data)(contents, pathData));
         }
       } else if (type === 'single') {

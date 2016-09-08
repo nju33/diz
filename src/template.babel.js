@@ -78,6 +78,19 @@ export default {
         }
         this.changeDefaultGenerator();
         return template;
+      })(),
+      archive: (() => {
+        this.changeTemplateGenerator();
+        let template = readTemplate('archive');
+        try {
+          while (/<<.+?>>/.test(template)) {
+            template = _.template(template)(fullTemplates);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+        this.changeDefaultGenerator();
+        return template;
       })()
     };
   },
