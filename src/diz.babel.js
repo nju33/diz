@@ -70,22 +70,22 @@ function diz(wd, opts) {
   }
 
   let orderedEntries = entries;
-  if (typeof opts.orderEntries === 'function') {
+  if (_.isFunction(opts.orderEntries)) {
     orderedEntries = opts.orderEntries(entries);
   }
 
   let orderedCategories = categories;
-  if (typeof opts.orderCategories === 'function') {
+  if (_.isFunction(opts.orderCategories)) {
     orderedCategories = opts.orderCategories(categories);
   }
 
   let orderedTags = tags;
-  if (typeof opts.orderTags === 'function') {
+  if (_.isFunction(opts.orderTags)) {
     orderedTags = opts.orderTags(tags);
   }
 
   let orderedArchives = archives;
-  if (typeof opts.orderArchives === 'function') {
+  if (_.isFunction(opts.orderArchives)) {
     orderedArchives = opts.orderArchives(archives);
   }
 
