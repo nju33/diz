@@ -6,11 +6,11 @@
       <section class="sidebar__section">
         <h4 class="sidebar__headline">${_.get(message, 'entries')}</h4>
         <div class="sidebar__inner-section">
-          <ul class="sidebar__list">
+          <ul class="sidebar__list--entry sidebar__list">
             ;; _.forEach(_.get(relation, 'entries', []), matter => {
-              <li class="sidebar__item">
+              <li class="sidebar__item--entry sidebar__item">
                 <div class="sidebar__inner-item">
-                  <a href="/entries/${matter.data.name}/" id="${_.get(matter, 'data.name')}">${_.get(matter, 'data.title')}</a>
+                  <a class="sidebar__link--entry sidebar__link" href="/entries/${matter.data.name}/" id="${_.get(matter, 'data.name')}">${_.get(matter, 'data.title')}</a>
                 </div>
               </li>
             ;; })
@@ -23,11 +23,11 @@
       <section class="sidebar__section">
         <h4 class="sidebar__headline">${_.get(message, 'categories')}</h4>
         <div class="sidebar__inner-section">
-          <ul class="sidebar__list">
+          <ul class="sidebar__list--category sidebar__list">
             ;; _.forEach(relation.categories, (categories, categoryName) => {
-              <li class="sidebar__item">
+              <li class="sidebar__item--category sidebar__item">
                 <div class="sidebar__inner-item">
-                  <a href="/categories/${categoryName}/">${categoryName}</a>
+                  <a class="sidebar__link--tag sidebar__link" href="/categories/${categoryName}/">${categoryName}</a>
                 </div>
               </li>
             ;; })
@@ -40,11 +40,11 @@
       <section class="sidebar__section">
         <h4 class="sidebar__headline">${_.get(message, 'tags')}</h4>
         <div class="sidebar__inner-section">
-          <ul class="sidebar__list">
+          <ul class="sidebar__list--tag sidebar__list">
             ;; _.forEach(relation.tags, (tags, tagName) => {
-              <li class="sidebar__item">
+              <li class="sidebar__item--tag sidebar__item">
                 <div class="sidebar__inner-item">
-                  <a href="/tags/${tagName}/">${tagName}</a>
+                  <a class="sidebar__link--tag sidebar__link" href="/tags/${tagName}/">${tagName}</a>
                 </div>
               </li>
             ;; })
@@ -57,11 +57,11 @@
       <section class="sidebar__section">
         <h4 class="sidebar__headline">${_.get(message, 'archives')}</h4>
         <div class="sidebar__inner-section">
-          <ul class="sidebar__list">
+          <ul class="sidebar__list--archive sidebar__list">
             ;; _.forEach(relation.archives, (archives, archiveName) => {
-              <li class="sidebar__item">
+              <li class="sidebar__item--archive sidebar__item">
                 <div class="sidebar__inner-item">
-                  <a href="/archives/${archiveName}/">${archiveName}</a>
+                  <a class="sidebar__link--archive sidebar__link" href="/archives/${archiveName}/">${archiveName}</a>
                 </div>
               </li>
             ;; })
