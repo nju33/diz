@@ -1,46 +1,53 @@
 <div class="sidebar__box">
   <div class="sidebar__inner-box">
     <h1><a href="${site.url}">${site.name}</a></h1>
-    <section class="sidebar__section">
-      <div class="sidebar__inner-section">
-        <ul class="sidebar__list">
-          ;; _.forEach(relation.entries, matter => {
-            <li class="sidebar__item">
-              <div class="sidebar__inner-item">
-                <a href="/entries/${matter.data.name}/">${matter.data.title}</a>
-              </div>
-            </li>
-          ;; })
-        </ul>
-      </div>
-    </section>
 
-    <section class="sidebar__section">
-      <div class="sidebar__inner-section">
-        <ul class="sidebar__list">
-          ;; _.forEach(relation.categories, (categories, categoryName) => {
-            <li class="sidebar__item">
-              <div class="sidebar__inner-item">
-                <a href="/categories/${categoryName}/">${categoryName}</a>
-              </div>
-            </li>
-          ;; })
-        </ul>
-      </div>
-    </section>
+    ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
+      <section class="sidebar__section">
+        <div class="sidebar__inner-section">
+          <ul class="sidebar__list">
+            ;; _.forEach(relation.entries, matter => {
+              <li class="sidebar__item">
+                <div class="sidebar__inner-item">
+                  <a href="/entries/${matter.data.name}/">${matter.data.title}</a>
+                </div>
+              </li>
+            ;; })
+          </ul>
+        </div>
+      </section>
+    ;; }
 
-    <section class="sidebar__section">
-      <div class="sidebar__inner-section">
-        <ul class="sidebar__list">
-          ;; _.forEach(relation.tags, (tags, tagName) => {
-            <li class="sidebar__item">
-              <div class="sidebar__inner-item">
-                <a href="/tags/${tagName}/">${tagName}</a>
-              </div>
-            </li>
-          ;; })
-        </ul>
-      </div>
-    </section>
+    ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
+      <section class="sidebar__section">
+        <div class="sidebar__inner-section">
+          <ul class="sidebar__list">
+            ;; _.forEach(relation.categories, (categories, categoryName) => {
+              <li class="sidebar__item">
+                <div class="sidebar__inner-item">
+                  <a href="/categories/${categoryName}/">${categoryName}</a>
+                </div>
+              </li>
+            ;; })
+          </ul>
+        </div>
+      </section>
+    ;; }
+
+    ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
+      <section class="sidebar__section">
+        <div class="sidebar__inner-section">
+          <ul class="sidebar__list">
+            ;; _.forEach(relation.tags, (tags, tagName) => {
+              <li class="sidebar__item">
+                <div class="sidebar__inner-item">
+                  <a href="/tags/${tagName}/">${tagName}</a>
+                </div>
+              </li>
+            ;; })
+          </ul>
+        </div>
+      </section>
+    ;; }
   </div>
 </div>
