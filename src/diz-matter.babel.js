@@ -20,6 +20,7 @@ export default class DizMatter {
       matter.data.date = null;
     }
 
+    this.id = _.uniqueId();
     this.data = matter.data;
     this.content = compiler()(matter.content);
 

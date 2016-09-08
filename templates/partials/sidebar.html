@@ -4,13 +4,13 @@
 
     ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
       <section class="sidebar__section">
-        <h4 class="sidebar__headline">${message.entries}</h4>
+        <h4 class="sidebar__headline">${_.get(message, 'entries')}</h4>
         <div class="sidebar__inner-section">
           <ul class="sidebar__list">
-            ;; _.forEach(relation.entries, matter => {
+            ;; _.forEach(_.get(relation, 'entries', []), matter => {
               <li class="sidebar__item">
                 <div class="sidebar__inner-item">
-                  <a href="/entries/${matter.data.name}/">${matter.data.title}</a>
+                  <a href="/entries/${matter.data.name}/">${_.get(matter, 'data.title')}</a>
                 </div>
               </li>
             ;; })
@@ -21,7 +21,7 @@
 
     ;; if (_.overEvery([_.isObject, _.size])(relation.categories)) {
       <section class="sidebar__section">
-        <h4 class="sidebar__headline">${message.categories}</h4>
+        <h4 class="sidebar__headline">${_.get(message, 'categories')}</h4>
         <div class="sidebar__inner-section">
           <ul class="sidebar__list">
             ;; _.forEach(relation.categories, (categories, categoryName) => {
@@ -38,7 +38,7 @@
 
     ;; if (_.overEvery([_.isObject, _.size])(relation.tags)) {
       <section class="sidebar__section">
-        <h4 class="sidebar__headline">${message.tags}</h4>
+        <h4 class="sidebar__headline">${_.get(message, 'tags')}</h4>
         <div class="sidebar__inner-section">
           <ul class="sidebar__list">
             ;; _.forEach(relation.tags, (tags, tagName) => {

@@ -3,7 +3,8 @@
     <div class="entry__inner-box">
       <header class="entry__header">
         <div class="entry__header-inner">
-          <h1>${matter.data.title}</h1>
+          <a class="entry__link--headline entry__link" href="#${_.get(matter, 'data.name')}"></a>
+          <h1 id="${matter, 'data.name'}">${_.get(matter, 'data.title')}</h1>
         </div>
       </header>
       <div class="entry__body">
