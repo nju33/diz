@@ -1,10 +1,10 @@
 ;; _.forEach(matters, matter => {
-  <archive class="entry__box">
+  <archive class="entry__box" id="${_.get(matter, 'data.name')}">
     <div class="entry__inner-box">
       <header class="entry__header">
         <div class="entry__header-inner">
           <a class="entry__link--headline entry__link" href="#${_.get(matter, 'data.name')}"></a>
-          <h1 id="${matter, 'data.name'}">${_.get(matter, 'data.title')}</h1>
+          <h1>${_.get(matter, 'data.title')}</h1>
         </div>
       </header>
       <div class="entry__body">
@@ -12,6 +12,8 @@
           ${matter.beginning}
         </div>
       </div>
+      <footer>
+      </footer>
     </div>
   </archive>
 ;; })

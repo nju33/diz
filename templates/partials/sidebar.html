@@ -10,7 +10,7 @@
             ;; _.forEach(_.get(relation, 'entries', []), matter => {
               <li class="sidebar__item">
                 <div class="sidebar__inner-item">
-                  <a href="/entries/${matter.data.name}/">${_.get(matter, 'data.title')}</a>
+                  <a href="/entries/${matter.data.name}/" id="${_.get(matter, 'data.name')}">${_.get(matter, 'data.title')}</a>
                 </div>
               </li>
             ;; })
