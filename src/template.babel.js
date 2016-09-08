@@ -12,7 +12,6 @@ const templates = {
 export default {
   generateTemplates(blocks) {
     this.fullTemplates = Object.assign({}, templates, {blocks});
-
     return {
       home: buildTemplate.call(this, 'home'),
       entry: buildTemplate.call(this, 'entry'),

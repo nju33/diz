@@ -40,30 +40,25 @@ function diz(wd, opts) {
     const matter = new DizMatter(workingDirname, filepath, opts.compiler);
     entries.push(matter);
 
-    if (!nil(matter.data.category)) {
-      (c => {
-        const cloned = cloneMatter(matter);
-        categories[c] || _.set(categories, c, []);
-        categories[c].push(cloned);
-      })(matter.data.category);
+    if (!_.isNil(matter.data.category)) {
+      const cloned = cloneMatter(matter);
+      _.update(categories, matter.data.category, value => {
+        return _.isUndefined(value) ? [cloned] : _.concat(value, [cloned]);
+      });
     }
 
-    if (!nil(matter.data.tags)) {
-      if (typeof matter.data.tags === 'string') {
-        matter.data.tags = [matter.data.tags];
-      }
-      for (const t of matter.data.tags) {
+    if (!_.isNil(matter.data.tags)) {
+      for (const tagName of _.flatten([matter.data.tags])) {
         const cloned = cloneMatter(matter);
-        tags[t] || _.set(tags, t, []);
-        tags[t].push(cloned);
+        _.update(tags, tagName, value => {
+          return _.isUndefined(value) ? [cloned] : _.concat(value, [cloned]);
+        });
       }
     }
 
-    if (!nil(matter.data.date)) {
+    if (!_.isNil(matter.data.date)) {
       (date => {
-        const year = date.year();
-        const month = date.month();
-
+        const [year, month] = [date.year(), date.month()]
         archives[`${year}-${month}`] || (() => {
           const cloned = cloneMatter(matter);
           _.update(archives, `${year}-${month}`, value => {
@@ -75,18 +70,21 @@ function diz(wd, opts) {
   }
 
   let orderedEntries = entries;
-  let orderedCategories = categories;
-  let orderedTags = tags;
-  let orderedArchives = archives;
   if (typeof opts.orderEntries === 'function') {
     orderedEntries = opts.orderEntries(entries);
   }
+
+  let orderedCategories = categories;
   if (typeof opts.orderCategories === 'function') {
     orderedCategories = opts.orderCategories(categories);
   }
+
+  let orderedTags = tags;
   if (typeof opts.orderTags === 'function') {
     orderedTags = opts.orderTags(tags);
   }
+
+  let orderedArchives = archives;
   if (typeof opts.orderArchives === 'function') {
     orderedArchives = opts.orderArchives(archives);
   }
@@ -133,10 +131,6 @@ function diz(wd, opts) {
   } catch (err) {
     console.log(err);
   }
-}
-
-function nil(value) {
-  return typeof value === 'undefined' || value === null;
 }
 
 function cloneMatter(matter) {
