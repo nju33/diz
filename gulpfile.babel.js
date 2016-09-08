@@ -3,24 +3,21 @@ import plumber from 'gulp-plumber';
 import babel from 'gulp-babel';
 import rename from 'gulp-rename';
 
-{
-  const src = 'src/**/*.babel.js';
-  const dest = 'dist/';
+gulp.task('babel', () => {
+  gulp.src('src/**/*.babel.js')
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(rename(path => {
+      path.basename = path.basename.match(/^[^.]+/)[0];
+    }))
+    .pipe(gulp.dest('dist/'));
+});
 
-  gulp.task('babel', () => {
-    gulp.src(src)
-      .pipe(plumber())
-      .pipe(babel())
-      .pipe(rename(path => {
-        path.basename = path.basename.match(/^[^.]+/)[0];
-      }))
-      .pipe(gulp.dest(dest));
-  });
-}
+gulp.task('babel-json', () => {
+  gulp.src('src/**/*.json').pipe(gulp.dest('dist/'));
+});
 
-{
-  const src = 'src/**/*.babel.js';
-  gulp.task('watch', ['babel'], () => {
-    gulp.watch(src, ['babel']);
-  });
-}
+gulp.task('watch', ['babel', 'babel-json'], () => {
+  gulp.watch('src/**/*.babel.js', ['babel']);
+  gulp.watch('src/**/*.json', ['babel-json']);
+});

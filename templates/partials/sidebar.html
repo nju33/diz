@@ -4,6 +4,7 @@
 
     ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
       <section class="sidebar__section">
+        <h4 class="sidebar__headline">${message.entries}</h4>
         <div class="sidebar__inner-section">
           <ul class="sidebar__list">
             ;; _.forEach(relation.entries, matter => {
@@ -18,8 +19,9 @@
       </section>
     ;; }
 
-    ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
+    ;; if (_.overEvery([_.isObject, _.size])(relation.categories)) {
       <section class="sidebar__section">
+        <h4 class="sidebar__headline">${message.categories}</h4>
         <div class="sidebar__inner-section">
           <ul class="sidebar__list">
             ;; _.forEach(relation.categories, (categories, categoryName) => {
@@ -34,8 +36,9 @@
       </section>
     ;; }
 
-    ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
+    ;; if (_.overEvery([_.isObject, _.size])(relation.tags)) {
       <section class="sidebar__section">
+        <h4 class="sidebar__headline">${message.tags}</h4>
         <div class="sidebar__inner-section">
           <ul class="sidebar__list">
             ;; _.forEach(relation.tags, (tags, tagName) => {

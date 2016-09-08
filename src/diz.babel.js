@@ -28,7 +28,8 @@ function diz(wd, opts) {
   const workingDirname = path.basename(wd);
   const config = localConfig.get(wd);
   templates = template.generateTemplates(config.blocks);
-  const collectRelation = preRender(template, wd, config, opts);
+  const message = getMessage(_.get(opts, 'site.lang') || en);
+  const collectRelation = preRender(template, wd, config, opts, {message});
   const entries = [];
   const categories = {};
   const tags = {};
@@ -162,7 +163,7 @@ function createFile(wd, data) {
   }
 }
 
-function preRender(template, wd, config, opts) {
+function preRender(template, wd, config, opts, message) {
   const matcher = {
     HOME: _.matches({label: 'home'}),
     ENTRY: _.matches({label: 'entry'}),
@@ -201,7 +202,7 @@ function preRender(template, wd, config, opts) {
         const data = Object.assign({}, {
           relation: relationData,
           label
-        }, config, opts, {matters})
+        }, config, opts, message, {matters})
         const contents = _.template(templates[label])(data);
 
         if (label === 'home') {
@@ -215,7 +216,7 @@ function preRender(template, wd, config, opts) {
           const data = Object.assign({}, {
             relation: relationData,
             label
-          }, config, opts, {matter})
+          }, config, opts, message, {matter})
           const contents = _.template(templates[label])(data);
 
           if (label === 'entry') {
@@ -228,4 +229,17 @@ function preRender(template, wd, config, opts) {
       return files;
     }
   }
+}
+
+function getMessage(lang) {
+  const dir = `${__dirname}/i18n`;
+  let message = require(`${dir}/en/messages.json`);
+  try {
+    const _message = require(`${dir}/${lang}/messages.json`);
+    message = Object.assign({}, message, _message);
+    console.log(message);
+  } catch (err) {
+    console.log(err);
+  }
+  return message;
 }
