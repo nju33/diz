@@ -104,30 +104,26 @@ function diz(wd, opts) {
       .concat(renderCollection('loop', 'home', orderedEntries))
       .concat(renderCollection('single', 'entry', orderedEntries))
       // Categories
-      .concat((() => {
-        let _files = [];
-        _.forEach(orderedCategories, (categories, categoryName) => {
-          _files = _files.concat(renderCollection(
-            'loop', 'categoryHome', categories, {categoryName}))
-        });
-        return _files;
-      })())
+      .concat((_categories => {
+        return _.reduce(_categories, (files, categories, categoryName) => {
+          return _.concat(files,
+            renderCollection('loop', 'category', categories, {categoryName}));
+        }, []);
+      })(orderedCategories))
       // Tags
-      .concat((() => {
-        let _files = [];
-        _.forEach(orderedTags, (tags, tagName) => {
-          _files = _files.concat(renderCollection(
-            'loop', 'tagHome', tags, {tagName}))
-        });
-        return _files;
-      })())
+      .concat((_tags => {
+        return _.reduce(_tags, (files, tags, tagName) => {
+          return _.concat(files,
+            renderCollection('loop', 'tag', tags, {tagName}));
+        }, []);
+      })(orderedTags))
       // Arhives
-      .concat((() => {
-        return _.reduce(orderedArchives, (files, archives, archiveName) => {
+      .concat((_archives => {
+        return _.reduce(_archives, (files, archives, archiveName) => {
           return _.concat(files,
             renderCollection('loop', 'archive', archives, {archiveName}));
         }, []);
-      })());
+      })(orderedArchives));
 
     console.log(files);
     debugger;
@@ -172,9 +168,9 @@ function preRender(template, wd, config, opts, message) {
   const matcher = {
     HOME: _.matches({label: 'home'}),
     ENTRY: _.matches({label: 'entry'}),
-    'CATEGORY_HOME': _.matches({label: 'categoryHome'}),
-    'TAG_HOME': _.matches({label: 'tagHome'}),
-    'ARCHIVE': _.matches({label: 'archive'}),
+    CATEGORY: _.matches({label: 'category'}),
+    TAG: _.matches({label: 'tag'}),
+    ARCHIVE: _.matches({label: 'archive'}),
   };
 
   const matchesFile = _.cond([
@@ -184,10 +180,10 @@ function preRender(template, wd, config, opts, message) {
     [matcher.ENTRY, createFile.bind(null, wd, {
       path: _.template('entries/<%=entryName%>/index.html')
     })],
-    [matcher.CATEGORY_HOME, createFile.bind(null, wd, {
+    [matcher.CATEGORY, createFile.bind(null, wd, {
       path: _.template('categories/<%=categoryName%>/index.html')
     })],
-    [matcher.TAG_HOME, createFile.bind(null, wd, {
+    [matcher.TAG, createFile.bind(null, wd, {
       path: _.template('tags/<%=tagName%>/index.html')
     })],
     [matcher.ARCHIVE, createFile.bind(null, wd, {

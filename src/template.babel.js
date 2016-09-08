@@ -11,87 +11,14 @@ const templates = {
 
 export default {
   generateTemplates(blocks) {
-    const fullTemplates = Object.assign({}, templates, {blocks});
+    this.fullTemplates = Object.assign({}, templates, {blocks});
 
     return {
-      home: (() => {
-        this.changeTemplateGenerator();
-        let template = readTemplate('home');
-        try {
-          while (/<<.+?>>/.test(template)) {
-            template = _.template(template)(fullTemplates);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        this.changeDefaultGenerator();
-        return template;
-      })(),
-      entry: (() => {
-        this.changeTemplateGenerator();
-        let template = readTemplate('entry');
-        try {
-          while (/<<.+?>>/.test(template)) {
-            template = _.template(template)(fullTemplates);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        this.changeDefaultGenerator();
-        return template;
-      })(),
-      categoryHome: (() => {
-        this.changeTemplateGenerator();
-        let template = readTemplate('category-home');
-        try {
-          while (/<<.+?>>/.test(template)) {
-            template = _.template(template)(fullTemplates);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        this.changeDefaultGenerator();
-        return template;
-      })(),
-      categorySingle: (() => {
-        this.changeTemplateGenerator();
-        let template = readTemplate('category-single');
-        try {
-          while (/<<.+?>>/.test(template)) {
-            template = _.template(template)(fullTemplates);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        this.changeDefaultGenerator();
-        return template;
-      })(),
-      tagHome: (() => {
-        this.changeTemplateGenerator();
-        let template = readTemplate('tag-home');
-        try {
-          while (/<<.+?>>/.test(template)) {
-            template = _.template(template)(fullTemplates);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        this.changeDefaultGenerator();
-        return template;
-      })(),
-      archive: (() => {
-        this.changeTemplateGenerator();
-        let template = readTemplate('archive');
-        try {
-          while (/<<.+?>>/.test(template)) {
-            template = _.template(template)(fullTemplates);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-        this.changeDefaultGenerator();
-        return template;
-      })()
+      home: buildTemplate.call(this, 'home'),
+      entry: buildTemplate.call(this, 'entry'),
+      category: buildTemplate.call(this, 'category'),
+      tag: buildTemplate.call(this, 'tag'),
+      archive: buildTemplate.call(this, 'archive')
     };
   },
 
@@ -123,4 +50,18 @@ function readTemplate(filename) {
   const filepath = require('path')
                      .resolve(__dirname, partialDir, `${filename}.html`);
   return require('fs').readFileSync(filepath, 'utf-8');
+}
+
+function buildTemplate(templateName) {
+  this.changeTemplateGenerator();
+  let template = readTemplate(templateName);
+  try {
+    while (/<<.+?>>/.test(template)) {
+      template = _.template(template)(this.fullTemplates);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  this.changeDefaultGenerator();
+  return template;
 }
