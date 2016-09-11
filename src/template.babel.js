@@ -1,17 +1,21 @@
 import fs from 'fs';
+import path from 'path';
 import _ from 'lodash';
+import glob from 'glob';
 
-const templates = {
-  head: readPartial('head'),
-  sidebar: readPartial('sidebar'),
-  main: readPartial('main'),
-  single: readPartial('single'),
-  entryloop: readPartial('entryloop'),
-};
+const partialsDir = path.resolve(__dirname, '../templates/partials');
+const templates = _(glob.sync(`${partialsDir}/**/*.html`))
+  .reduce((result, filePath) => {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const basename = path.basename(filePath, '.html');
+    _.set(result, basename, content);
+    console.log(result);
+    return result;
+  }, {});
 
 export default {
-  generateTemplates(layouts, blocks) {
-    this.fullTemplates = Object.assign({}, templates, {layouts, blocks});
+  generateTemplates(layout, blocks) {
+    this.fullTemplates = Object.assign({}, templates, {layout, blocks});
     return {
       home: buildTemplate.call(this, 'home'),
       entry: buildTemplate.call(this, 'entry'),

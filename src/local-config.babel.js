@@ -11,7 +11,7 @@ const defaults = {
     tags: null,
     date: null
   },
-  layouts: {
+  layout: {
     root(sidebar, contents) {
       return `${sidebar}${contents}`;
     }
