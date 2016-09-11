@@ -25,7 +25,7 @@ export default class DizMatter {
     this.content = compiler()(matter.content);
 
     this.beginning = this.content;
-    const beginningMatches = this.content.match(/([\s\S]+)<!-- more -->/);
+    const beginningMatches = this.content.match(/([\s\S]*)<!-- more -->/);
     if (beginningMatches !== null) {
       this.beginning = beginningMatches[1];
     }
