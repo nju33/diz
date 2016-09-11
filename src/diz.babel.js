@@ -27,7 +27,7 @@ function diz(wd, opts) {
 
   const workingDirname = path.basename(wd);
   const config = localConfig.get(wd);
-  templates = template.generateTemplates(config.blocks);
+  templates = template.generateTemplates(config.layouts, config.blocks);
   const message = getMessage(_.get(opts, 'site.lang') || en);
   const collectRelation = preRender(template, wd, config, opts, {message});
   const entries = [];

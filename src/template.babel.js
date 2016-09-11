@@ -10,8 +10,8 @@ const templates = {
 };
 
 export default {
-  generateTemplates(blocks) {
-    this.fullTemplates = Object.assign({}, templates, {blocks});
+  generateTemplates(layouts, blocks) {
+    this.fullTemplates = Object.assign({}, templates, {layouts, blocks});
     return {
       home: buildTemplate.call(this, 'home'),
       entry: buildTemplate.call(this, 'entry'),
@@ -22,13 +22,18 @@ export default {
   },
 
   changeDefaultGenerator() {
-    _.templateSettings.escape = /<%-([\s\S]+?)%>/g
-    _.templateSettings.evaluate =/<%([\s\S]+?)%>/g
-    _.templateSettings.interpolate =/<%=([\s\S]+?)%>/g
+    _.templateSettings.escape = /<%-([\s\S]+?)%>/g;
+    _.templateSettings.evaluate =/<%([\s\S]+?)%>/g;
+    _.templateSettings.interpolate =/<%=([\s\S]+?)%>/g;
+    _.templateSettings.imports = {_};
   },
 
   changeTemplateGenerator() {
     _.templateSettings.interpolate = /<<([\s\S]+?)>>/g;
+    _.templateSettings.imports = {
+      _,
+      t(strings) { return `<<${strings[0]}>>`; }
+    }
   },
 
   changeContentGenerator() {

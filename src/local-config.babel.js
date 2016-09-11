@@ -10,6 +10,11 @@ const defaults = {
     description: null,
     tags: null,
     date: null
+  },
+  layouts: {
+    root(sidebar, contents) {
+      return `${sidebar}${contents}`;
+    }
   }
 }
 
