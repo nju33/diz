@@ -12,8 +12,19 @@ const defaults = {
     date: null
   },
   layout: {
-    root(sidebar, contents) {
-      return `${sidebar}${contents}`;
+    root(component) {
+      return [
+        component.sidebar,
+        component.contents
+      ].join('\n');
+    },
+    head(component) {
+      return [
+        component.meta,
+        component.title,
+        component.ogp,
+        component.twittercard
+      ].join('\n');
     }
   }
 }

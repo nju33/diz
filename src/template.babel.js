@@ -9,7 +9,6 @@ const templates = _(glob.sync(`${partialsDir}/**/*.html`))
     const content = fs.readFileSync(filePath, 'utf-8');
     const basename = path.basename(filePath, '.html');
     _.set(result, basename, content);
-    console.log(result);
     return result;
   }, {});
 
@@ -33,6 +32,8 @@ export default {
   },
 
   changeTemplateGenerator() {
+    _.templateSettings.escape = null;
+    _.templateSettings.evaluate = null;
     _.templateSettings.interpolate = /<<([\s\S]+?)>>/g;
     _.templateSettings.imports = {
       _,

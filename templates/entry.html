@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-;; if (_.get(site, 'lang')) {
-  <html lang="${site.lang}">
-;; } else {
-  <html>
-;; }
+<<html>>
+
 <head>
-  <<head>>
+  <<layout.head({
+    meta: t`meta`,
+    title: t`title`,
+    ogp: t`ogp`,
+    twitterCard: t`twitter-card`
+  }, {type: type, label: label})>>
 </head>
+
 <body>
 
   <div class="container__box">
     <div class="container__inner-box">
-      <<layout.root(t`sidebar`, t`single`)>>
+      <<layout.root({
+        sidebar: t`sidebar`,
+        contents: t`single`
+      }, {type: type, label: label})>>
     </div>
   </div>
 
-
 </body>
+
 </html>

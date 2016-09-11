@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html lang="ja">
+<<html>>
+
 <head>
-  <<head>>
+  <<layout.head({
+    meta: t`meta`,
+    title: t`title`,
+    ogp: t`ogp`,
+    twitterCard: t`twitter-card`
+  }, {type: type, label: label})>>
 </head>
+
 <body>
 
   <div class="container__box">
     <div class="container__inner-box">
-      <<layout.root(t`sidebar`, t`main`)>>
+      <<layout.root({
+        sidebar: t`sidebar`,
+        contents: t`main`
+      }, {type: type, label: label})>>
     </div>
   </div>
 
 </body>
+
 </html>

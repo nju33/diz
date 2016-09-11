@@ -192,8 +192,15 @@ function preRender(template, wd, config, opts, message) {
       if (type === 'loop') {
         const data = Object.assign({}, {
           relation: relationData,
-          label
-        }, config, opts, message, {matters})
+          label,
+          matters,
+          data: {
+            title: '',
+            description: '',
+            url: '',
+            image: ''
+          }
+        }, config, opts, message);
         const contents = _.template(templates[label])(data);
 
         if (label === 'home') {
@@ -205,8 +212,10 @@ function preRender(template, wd, config, opts, message) {
         _.forEach(matters, matter => {
           const data = Object.assign({}, {
             relation: relationData,
-            label
-          }, config, opts, message, {matter})
+            label,
+            matter,
+            data: matter.data
+          }, config, opts, message);
           const contents = _.template(templates[label])(data);
 
           if (label === 'entry') {

@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-;; if (_.get(site, 'lang')) {
-  <html lang="${site.lang}">
-;; } else {
-  <html>
-;; }
+<<html>>
+
 <head>
-  <<head>>
-  <link rel="stylesheet" href="/styles/webfont.css">
-  <link rel="stylesheet" href="/styles/index.css">
+  <<layout.head({
+    meta: t`meta`,
+    title: t`title`,
+    ogp: t`ogp`,
+    twittercard: t`twittercard`
+  })>>
 </head>
+
 <body>
 
   <div class="container__box">
     <div class="container__inner-box">
-      <<layout.root(t`sidebar`, t`main`)>>
+      <<layout.root({
+        sidebar: t`sidebar`,
+        contents: t`main`
+      })>>
     </div>
   </div>
 
-
 </body>
+
 </html>
