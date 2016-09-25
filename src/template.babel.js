@@ -9,7 +9,7 @@ const partialsDir = path.resolve(__dirname, '../templates/partials');
 
 export default {
   templates: {},
-  prepare() {
+  prepare(template) {
     this.templates = _(glob.sync(`${partialsDir}/**/*.html`))
       .reduce((result, filePath) => {
         const matter = grayMatter.read(filePath);
@@ -33,10 +33,13 @@ export default {
         }
         return result;
       }, {});
+    if (_.isPlainObject(template)) {
+      Object.assign(this.templates, template);
+    }
   },
 
-  generateTemplates(layout, collection) {
-    this.prepare();
+  generateTemplates({layout, template, collection}) {
+    this.prepare(template);
     this.fullTemplates = Object.assign({}, this.templates, {
       layout,
       collection

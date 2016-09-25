@@ -8,8 +8,7 @@
             <<layout.singleHeader(Object.assign({
               title: t`single:title`,
               category: t`single:category`
-            }, collection.getEntryComponents(t, {
-            })))>>
+            }, collection.getEntryComponents(t, {})), t)>>
 
             <h1 id="headline" class="entry__headline">${_.get(matter, 'data.title')}</h1>
 
@@ -41,8 +40,7 @@
           <<layout.singleFooter(Object.assign({
             title: t`single:title`,
             category: t`single:category`
-          }, collection.getEntryComponents(t, {
-          })))>>
+          }, collection.getEntryComponents(t, {})), t)>>
 
         </div>
       </footer>

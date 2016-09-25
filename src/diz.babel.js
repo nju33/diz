@@ -24,6 +24,7 @@ const defaultOpts = {
     locale: 'ja_JP'
   },
   compiler: marked,
+  template: {}
 };
 
 function diz(wd, opts) {
@@ -54,7 +55,11 @@ function diz(wd, opts) {
     }
   }
 
-  templates = template.generateTemplates(config.layout, collection);
+  templates = template.generateTemplates({
+    layout: config.layout,
+    template: opts.template,
+    collection
+  });
   template.changeContentGenerator();
 
   const render = preRender(template, wd, config, collection);
