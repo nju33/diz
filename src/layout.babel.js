@@ -10,7 +10,7 @@ export default {
   head(component) {
     return `
       ${component.meta}
-      <link href="/styles/index.css">
+      <link rel="stylesheet" href="/styles/index.css">
       ${component.title}
       ${component.ogp}
       ${component.twittercard}
