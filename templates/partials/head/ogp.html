@@ -10,8 +10,8 @@
   <meta property="og:image" content="${_.get(data, 'image')}">
 ;; }
 
-;; if (_.has(site, 'name')) {
-  <meta property="og:site_name" content="${_.get(site, 'name')}">
+;; if (_.has(config.site, 'name')) {
+  <meta property="og:site_name" content="${config.site.name}">
 ;; }
 
 ;; if (_.has(data, 'audio')) {
@@ -22,16 +22,16 @@
   <meta property="og:video" content="${_.get(data, 'video')}}">
 ;; }
 
-;; if (_.has(site, 'locale')) {
-  ;; _.forEach(_.flatten(_.get(site, 'locale')), (locale, idx) => {
-    if (!idx) {
-      <meta property="og:locale" content="${locale}">
-    } else {
-      <meta property="og:locale:alternate" content="${locale}">
-    }
-  ;; })
+;; if (_.has(config.site, 'locale')) {
+;;   _.forEach(_.flatten([config.site.locale]), (locale, idx) => {
+;;     if (!idx) {
+        <meta property="og:locale" content="${locale}">
+;;     } else {
+        <meta property="og:locale:alternate" content="${locale}">
+;;     }
+;;   });
 ;; }
 
-;; if (_.has(site, 'determiner')) {
-  <meta property="og:determiner" content="${_.get(site, 'determiner')}">
+;; if (_.has(config.site, 'determiner')) {
+  <meta property="og:determiner" content="${config.site.determiner}">
 ;; }

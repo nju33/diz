@@ -3,11 +3,11 @@
 
 <head>
   <<layout.head({
-    meta: t`meta`,
-    title: t`title`,
-    ogp: t`ogp`,
-    twittercard: t`twittercard`
-  }})>>
+    meta: t`head:meta`,
+    title: t`head:title`,
+    ogp: t`head:ogp`,
+    twittercard: t`head:twittercard`
+  })>>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
     <div class="container__inner-box">
       <<layout.root({
         sidebar: t`sidebar`,
-        contents: t`main`
+        contents: t`single`
       })>>
     </div>
   </div>

@@ -4,6 +4,13 @@
       <div class="entry__inner-box">
         <header class="entry__header">
           <div class="entry__inner-header">
+
+            <<layout.singleHeader(Object.assign({
+              title: t`single:title`,
+              category: t`single:category`
+            }, collection.getEntryComponents(t, {
+            })))>>
+
             <h1 id="headline" class="entry__headline">${_.get(matter, 'data.title')}</h1>
 
             <ul class="entry__categories">
@@ -27,6 +34,18 @@
           </div>
         </div>
       </div>
+
+      <footer class="entry__footer">
+        <div class="entry__footer-inner">
+
+          <<layout.singleFooter(Object.assign({
+            title: t`single:title`,
+            category: t`single:category`
+          }, collection.getEntryComponents(t, {
+          })))>>
+
+        </div>
+      </footer>
     </article>
   </div>
 </main>

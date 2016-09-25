@@ -1,7 +1,7 @@
-;; if (_.has(site, 'name') && _.has(data, 'title')) {
-  <title>${_.get(data, 'title')} - ${_.get(site, 'name')}</title>
-;; } else if (_.has(site, 'name')) {
-  <title>${_.get(site, 'name')}</title>
+;; if (_.has(config.site, 'name') && _.has(data, 'title')) {
+  <title>${data.title} - ${config.site.name}</title>
+;; } else if (_.has(config.site, 'name')) {
+  <title>${config.site.name}</title>
 ;; } else if (_.has(data, 'title')) {
-  <title>${_.get(data, 'title')}</title>
+  <title>${data.title}</title>
 ;; }

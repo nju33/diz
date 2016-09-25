@@ -1,0 +1,19 @@
+---
+function: true
+---
+
+;; var _items = _.get(matter, 'data.<%= name %>');
+;; if (_.isArray(_items)) {
+  <ul class="entry__<%= name %> entry__meta-list">
+    ;; _.forEach(_.flatten([_items]), item => {
+      <li class="entry__<%= pluralize(name, 1) %> entry__meta-item">
+        <a href="/<%= basePath %>/${item}" class="entry__<%= name %>-link entry__link">${item}</a>
+      </li>
+    ;; })
+  </ul>
+
+;; } else if (<%= !_.isNil(name) %>) {
+  <div class="entry__<%= pluralize(name, 1) %>">
+    <a href="/<%= basePath %>/${matter.format('<%= name %>')}" class="entry__<%= pluralize(name, 1) %>-link entry__link">${matter.format('<%= name %>')}</a>
+  </div>
+;; }

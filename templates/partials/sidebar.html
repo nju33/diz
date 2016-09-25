@@ -1,73 +1,27 @@
 <div class="sidebar__box">
   <div class="sidebar__inner-box">
-    <h1><a href="${site.url}">${site.name}</a></h1>
+    <h1><a href="${config.site.url}">${config.site.name}</a></h1>
 
-    ;; if (_.overEvery([_.isArray, _.size])(relation.entries)) {
-      <section class="sidebar__section">
-        <h4 class="sidebar__headline">${_.get(message, 'entries')}</h4>
-        <div class="sidebar__inner-section">
-          <ul class="sidebar__list--entry sidebar__list">
-            ;; _.forEach(_.get(relation, 'entries', []), matter => {
-              <li class="sidebar__item--entry sidebar__item">
-                <div class="sidebar__inner-item">
-                  <a class="sidebar__link--entry sidebar__link" href="/entries/${matter.data.name}/" id="${_.get(matter, 'data.name')}">${_.get(matter, 'data.title')}</a>
-                </div>
-              </li>
-            ;; })
-          </ul>
-        </div>
-      </section>
-    ;; }
+    <<layout.sidebar(Object.assign({
+      entry: t`sidebar:section`({
+        headline: 'entries',
+        list: _.get(collection, 'list.entries', []),
+        templateUrl: templateUrl('entries'),
+        templateTitle: templateTitle,
+        templateCount: templateCount
+      }),
+      category: t`sidebar:section`({
+        headline: 'categories',
+        list: _.get(collection, 'list.categories', {}),
+        templateUrl: templateUrl('categories'),
+        templateTitle: templateTitle,
+        templateCount: templateCount
+      }),
+    }, collection.getSidebarComponents(t, {
+      templateUrl: templateUrl,
+      templateTitle: templateTitle,
+      templateCount: templateCount
+    })))>>
 
-    ;; if (_.overEvery([_.isObject, _.size])(relation.categories)) {
-      <section class="sidebar__section">
-        <h4 class="sidebar__headline">${_.get(message, 'categories')}</h4>
-        <div class="sidebar__inner-section">
-          <ul class="sidebar__list--category sidebar__list">
-            ;; _.forEach(relation.categories, (categories, categoryName) => {
-              <li class="sidebar__item--category sidebar__item">
-                <div class="sidebar__inner-item">
-                  <a class="sidebar__link--tag sidebar__link" href="/categories/${categoryName}/">${categoryName}</a>
-                </div>
-              </li>
-            ;; })
-          </ul>
-        </div>
-      </section>
-    ;; }
-
-    ;; if (_.overEvery([_.isObject, _.size])(relation.tags)) {
-      <section class="sidebar__section">
-        <h4 class="sidebar__headline">${_.get(message, 'tags')}</h4>
-        <div class="sidebar__inner-section">
-          <ul class="sidebar__list--tag sidebar__list">
-            ;; _.forEach(relation.tags, (tags, tagName) => {
-              <li class="sidebar__item--tag sidebar__item">
-                <div class="sidebar__inner-item">
-                  <a class="sidebar__link--tag sidebar__link" href="/tags/${tagName}/">${tagName}</a>
-                </div>
-              </li>
-            ;; })
-          </ul>
-        </div>
-      </section>
-    ;; }
-
-    ;; if (_.overEvery([_.isObject, _.size])(relation.archives)) {
-      <section class="sidebar__section">
-        <h4 class="sidebar__headline">${_.get(message, 'archives')}</h4>
-        <div class="sidebar__inner-section">
-          <ul class="sidebar__list--archive sidebar__list">
-            ;; _.forEach(relation.archives, (archives, archiveName) => {
-              <li class="sidebar__item--archive sidebar__item">
-                <div class="sidebar__inner-item">
-                  <a class="sidebar__link--archive sidebar__link" href="/archives/${archiveName}/">${archiveName}</a>
-                </div>
-              </li>
-            ;; })
-          </ul>
-        </div>
-      </section>
-    ;; }
   </div>
 </div>
