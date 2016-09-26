@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp babel",
-    "start": "gulp watch"
+    "start": "gulp watch",
+    "postpublish": "rm -rf dist && gulp babel"
   },
   "keywords": [],
   "author": "",
