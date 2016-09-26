@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "gulp babel",
     "start": "gulp watch"
   },
   "keywords": [],
