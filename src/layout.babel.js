@@ -19,7 +19,19 @@ export default {
   bodyHead() {
     return ``;
   },
+  bodyLoopHead() {
+    return ``;
+  },
+  bodySingleHead() {
+    return ``;
+  },
   bodyFoot() {
+    return ``;
+  },
+  bodyLoopFoot() {
+    return ``;
+  },
+  bodySingleFoot() {
     return ``;
   },
   sidebarHead(component) {

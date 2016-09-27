@@ -24,7 +24,8 @@ const defaultOpts = {
     locale: 'ja_JP'
   },
   compiler: marked,
-  template: {}
+  template: {},
+  data: {}
 };
 
 function diz(wd, opts) {
@@ -71,7 +72,7 @@ function diz(wd, opts) {
   });
   template.changeContentGenerator();
 
-  const render = preRender(template, wd, config, collection);
+  const render = preRender(opts, template, wd, config, collection);
   const ordered = {};
   const files = [];
   _.forEach(collection.list, (list, name) => {
@@ -117,7 +118,7 @@ function getEntryFiles(wd) {
   return glob.sync(path.resolve(wd, '**/entry.md'));
 }
 
-function preRender(template, wd, config, collection = {}) {
+function preRender(opts, template, wd, config, collection = {}) {
   return function render({
     type,
     label,
@@ -125,7 +126,7 @@ function preRender(template, wd, config, collection = {}) {
     matter,
     dirPath
   }) {
-    const data = Object.assign({}, {
+    const data = Object.assign({}, opts.data, {
       label,
       config,
       collection

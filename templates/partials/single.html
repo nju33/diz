@@ -10,21 +10,6 @@
               category: t`single:category`
             }, collection.getEntryComponents(t, {})), t)>>
 
-            <h1 id="headline" class="entry__headline">${_.get(matter, 'data.title')}</h1>
-
-            <ul class="entry__categories">
-              <li class="entry__category">
-                <a class="entry__link" href="/categories/${matter.data.category}/">${_.get(matter, 'data.category')}</a>
-              </li>
-            </ul>
-
-            <ul class="entry__categories">
-              ;; _.forEach(_.get(matter, 'data.tags', []), tag => {
-                <li class="entry__category">
-                  <a class="entry__link" href="/tags/${tag}/">${tag}</a>
-                </li>
-              ;; });
-            </ul>
           </div>
         </header>
         <div class="entry__body">
