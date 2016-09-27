@@ -55,6 +55,15 @@ function diz(wd, opts) {
     }
   }
 
+  _.forEach(collection.list, (list, name) => {
+    const suffix = pluralize(name).replace(/(.)/, c => c.toUpperCase());
+    const funcName = `order${suffix}`;
+    const func = opts[funcName];
+    if (_.isFunction(func)) {
+      collection.list[name] = func(list);
+    }
+  });
+
   templates = template.generateTemplates({
     layout: config.layout,
     template: opts.template,
@@ -66,19 +75,8 @@ function diz(wd, opts) {
   const ordered = {};
   const files = [];
   _.forEach(collection.list, (list, name) => {
-    const suffix = pluralize(name).replace(/(.)/, c => c.toUpperCase());
-    const funcName = `order${suffix}`;
-    const func = opts[funcName];
-
-    let target = null;
-    if (_.isFunction(func)) {
-      target = func(list);
-    } else {
-      target = list;
-    }
-
-    if (_.isPlainObject(target)) {
-      _.forEach(target, (matters, itemName) => {
+    if (_.isPlainObject(list)) {
+      _.forEach(list, (matters, itemName) => {
         const dirPath = `${pluralize(name)}/${itemName}`;
         files.push(render({
           type: 'loop',
@@ -88,8 +86,8 @@ function diz(wd, opts) {
         }));
       });
       return;
-    } else if (_.isArray(target)) {
-      for (const matter of target) {
+    } else if (_.isArray(list)) {
+      for (const matter of list) {
         const dirPath = `entries/${matter.data.name}`;
         files.push(render({
           type: 'single',
@@ -105,7 +103,7 @@ function diz(wd, opts) {
       files.push(render({
         type: 'loop',
         label: name,
-        matters: target,
+        matters: list,
         dirPath
       }));
     }
