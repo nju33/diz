@@ -126,14 +126,16 @@ function preRender(template, wd, config, collection = {}) {
     dirPath
   }) {
     const data = Object.assign({}, {
-      data: {},
       label,
       config,
       collection
     });
 
     if (!_.isNil(matters)) {
-      const _data = Object.assign({}, data, {matters});
+      const _data = Object.assign({}, data, {
+        matters,
+        data: {}
+      });
       const contents = _.template(templates[type])(_data);
       return new File({
         base: wd,
@@ -147,7 +149,13 @@ function preRender(template, wd, config, collection = {}) {
         })()
       });
     } else if (!_.isNil(matter)) {
-      const _data = Object.assign({}, data, {matter});
+      const _data = Object.assign({}, data, {
+        matter,
+        data: {
+          title: matter.data.title,
+          url: matter.data.fullUrl
+        }
+      });
       const contents = _.template(templates[type])(_data);
       return new File({
         base: wd,
