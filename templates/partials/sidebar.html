@@ -1,8 +1,10 @@
 <div class="sidebar__box">
   <div class="sidebar__inner-box">
-    <h1><a href="${config.site.url}">${config.site.name}</a></h1>
+    <<layout.sidebarHead({
+      headline: t`sidebar:headline`
+    }, t)>>
 
-    <<layout.sidebar(Object.assign({
+    <<layout.sidebarFoot(Object.assign({
       entry: t`sidebar:section`({
         headline: 'entries',
         list: _.get(collection, 'list.entries', []),

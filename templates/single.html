@@ -7,20 +7,22 @@
     title: t`head:title`,
     ogp: t`head:ogp`,
     twittercard: t`head:twittercard`
-  })>>
+  }, t)>>
 </head>
 
 <body>
+  <<layout.bodyHead(t)>>
 
   <div class="container__box">
     <div class="container__inner-box">
       <<layout.root({
         sidebar: t`sidebar`,
         contents: t`single`
-      })>>
+      }, t)>>
     </div>
   </div>
 
+  <<layout.bodyFoot(t)>>
 </body>
 
 </html>

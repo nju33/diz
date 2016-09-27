@@ -16,7 +16,16 @@ export default {
       ${component.twittercard}
     `;
   },
-  sidebar(component) {
+  bodyHead() {
+    return ``;
+  },
+  bodyFoot() {
+    return ``;
+  },
+  sidebarHead(component) {
+    return `${component.headline}`;
+  },
+  sidebarFoot(component) {
     const sidebar = _.reduce(component, (result, _component) => {
       result += `${_component({})} `;
       return result;
