@@ -8,7 +8,9 @@ defaults:
 
 <% if (_.isArray(list)) { %>
   <section class="sidebar__section">
-    <h4 class="sidebar__headline"><%= headline %></h4>
+    <% if (headline) { %>
+      <h4 class="sidebar__headline"><%= headline %></h4>
+    <% } %>
     <div class="sidebar__inner-section">
       <ul class="sidebar__list--entry sidebar__list">
         <% _.forEach(list, matter => { %>
