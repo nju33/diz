@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import _reload from 'require-reload';
 import layout from './layout';
+
+const reload = _reload(require);
 
 const defaults = {
   site: {
@@ -32,7 +35,7 @@ const defaults = {
 export default {
   get(wd) {
     try {
-      const siteConfig = require(path.resolve(wd, 'site.config'));
+      const siteConfig = reload(path.resolve(wd, 'site.config'));
       const config = {
         site: Object.assign({}, defaults.site),
         frontmatter: Object.assign({}, defaults.frontmatter),
