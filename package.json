@@ -21,7 +21,8 @@
     "moment": "^2.14.1",
     "pluralize": "^3.0.0",
     "require-reload": "^0.2.2",
-    "vinyl": "^1.2.0"
+    "vinyl": "^1.2.0",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
