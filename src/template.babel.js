@@ -2,25 +2,51 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import glob from 'glob';
+import pluralize from 'pluralize';
+import grayMatter from 'gray-matter'
 
 const partialsDir = path.resolve(__dirname, '../templates/partials');
-const templates = _(glob.sync(`${partialsDir}/**/*.html`))
-  .reduce((result, filePath) => {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const basename = path.basename(filePath, '.html');
-    _.set(result, basename, content);
-    return result;
-  }, {});
 
 export default {
-  generateTemplates(layout, blocks) {
-    this.fullTemplates = Object.assign({}, templates, {layout, blocks});
+  templates: {},
+  prepare(template) {
+    this.templates = _(glob.sync(`${partialsDir}/**/*.html`))
+      .reduce((result, filePath) => {
+        const matter = grayMatter.read(filePath);
+        const content = matter.content;
+        const dirname = path.dirname(filePath).split('/').reverse()[0];
+        const basename = path.basename(filePath, '.html');
+        const key = dirname !== 'partials' ?
+                      `${dirname}:${basename}` :
+                      basename;
+        const defaults = _.get(matter.data, 'defaults', {});
+
+        if (_.get(matter, 'data.function')) {
+          const render = _.curry((pre, suf) => {
+            // this.changeContentGenerator();
+            this.changeDefaultGenerator();
+            return _.template(content)(Object.assign({}, defaults, pre, suf));
+          });
+          _.set(result, key, render);
+        } else {
+          _.set(result, key, content);
+        }
+        return result;
+      }, {});
+    if (_.isPlainObject(template)) {
+      Object.assign(this.templates, template);
+    }
+  },
+
+  generateTemplates({layout, template, collection}) {
+    this.prepare(template);
+    this.fullTemplates = Object.assign({}, this.templates, {
+      layout,
+      collection
+    });
     return {
-      home: buildTemplate.call(this, 'home'),
-      entry: buildTemplate.call(this, 'entry'),
-      category: buildTemplate.call(this, 'category'),
-      tag: buildTemplate.call(this, 'tag'),
-      archive: buildTemplate.call(this, 'archive')
+      single: buildTemplate.call(this, 'single'),
+      loop: buildTemplate.call(this, 'loop'),
     };
   },
 
@@ -28,22 +54,43 @@ export default {
     _.templateSettings.escape = /<%-([\s\S]+?)%>/g;
     _.templateSettings.evaluate =/<%([\s\S]+?)%>/g;
     _.templateSettings.interpolate =/<%=([\s\S]+?)%>/g;
-    _.templateSettings.imports = {_};
+    _.templateSettings.imports = {
+      _,
+      pluralize
+    };
   },
 
   changeTemplateGenerator() {
+    const templates = this.templates;
     _.templateSettings.escape = null;
-    _.templateSettings.evaluate = null;
+    _.templateSettings.evaluate = /<<<([\s\S]+?)>>>/g;
     _.templateSettings.interpolate = /<<([\s\S]+?)>>/g;
     _.templateSettings.imports = {
       _,
-      t(strings) { return `<<${strings[0]}>>`; }
+      t(strings) {
+        return _.get(templates, strings[0], '');
+      },
+      templateUrl(basePath) {
+        return pagePath => {
+          return `/${basePath}/${pagePath}`;
+        }
+      },
+      templateTitle(title) {
+        return title;
+      },
+      templateCount(items) {
+        return items.length;
+      }
     }
   },
 
   changeContentGenerator() {
+    _.templateSettings.escape = null;
     _.templateSettings.evaluate = /;;(.+)(?:;;)?\n/g;
     _.templateSettings.interpolate = /\${([\s\S]+?)}/g;
+    _.templateSettings.imports = {
+      _
+    };
   }
 };
 
@@ -62,10 +109,10 @@ function readTemplate(filename) {
 }
 
 function buildTemplate(templateName) {
-  this.changeTemplateGenerator();
   let template = readTemplate(templateName);
   try {
-    while (/<<.+?>>/.test(template)) {
+    while (/<<[\s\S]*?>>/.test(template)) {
+      this.changeTemplateGenerator();
       template = _.template(template)(this.fullTemplates);
     }
   } catch (err) {

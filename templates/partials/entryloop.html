@@ -3,8 +3,12 @@
     <div class="entry__inner-box">
       <header class="entry__header">
         <div class="entry__header-inner">
-          <a class="entry__link--headline entry__link" href="#${_.get(matter, 'data.name')}"></a>
-          <h1>${_.get(matter, 'data.title')}</h1>
+
+          <<layout.loopHeader(Object.assign({
+            title: t`single:title`,
+            category: t`single:category`
+          }, {}), t)>>
+
         </div>
       </header>
       <div class="entry__body">

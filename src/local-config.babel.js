@@ -1,41 +1,71 @@
 import fs from 'fs';
 import path from 'path';
+import _ from 'lodash';
+import _reload from 'require-reload';
+import layout from './layout';
+
+const reload = _reload(require);
 
 const defaults = {
-  sidebar: {
-    sections: ['entry', 'category', 'tag', 'archive']
+  site: {
+    name: '',
+    lang: '',
+    url: '',
+    description: '',
+    image: '',
+    copyright: '',
+    author: {
+      name: '',
+      email: '',
+      link: ''
+    },
+    twitter: {
+      username: ''
+    },
+    facebook: {
+      username: ''
+    }
   },
   frontmatter: {
-    title: null,
-    description: null,
-    tags: null,
-    date: null
-  },
-  layout: {
-    root(component) {
-      return [
-        component.sidebar,
-        component.contents
-      ].join('\n');
+    title: {
+      default: '',
+      required: true
     },
-    head(component) {
-      return [
-        component.meta,
-        component.title,
-        component.ogp,
-        component.twittercard
-      ].join('\n');
+    description: {
+      default: ''
     }
-  }
+  },
+  layout
 }
 
 export default {
   get(wd) {
     try {
-      const config = require(path.resolve(wd, 'diz.config'));
-      return Object.assign({}, defaults, config);
+      const siteConfig = reload(path.resolve(wd, 'site.config'));
+      const config = {
+        site: Object.assign({}, defaults.site),
+        frontmatter: Object.assign({}, defaults.frontmatter),
+        layout: Object.assign({}, defaults.layout)
+      };
+
+      if (!_.isNil(siteConfig.site)) {
+        const key = 'site';
+        Object.assign(config[key], siteConfig[key]);
+      }
+
+      if (!_.isNil(siteConfig.frontmatter)) {
+        const key = 'frontmatter';
+        Object.assign(config[key], siteConfig[key]);
+      }
+
+      if (!_.isNil(siteConfig.layout)) {
+        const key = 'layout';
+        Object.assign(config[key], siteConfig[key]);
+      }
+
+      return config;
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   }
 };
