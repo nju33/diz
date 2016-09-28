@@ -37,7 +37,6 @@ function diz(wd, opts) {
     entries: null
   });
   const filepaths = getEntryFiles(wd);
-  const errorLogs = [];
 
   for (const filepath of filepaths) {
     const matter = new DizMatter({
@@ -135,7 +134,7 @@ function preRender(opts, template, wd, config, collection = {}) {
     if (!_.isNil(matters)) {
       const _data = Object.assign({}, data, {
         matters,
-        data: {}
+        data: Object.assign({}, {site: config.site})
       });
       const contents = _.template(templates[type])(_data);
       return new File({
@@ -152,10 +151,7 @@ function preRender(opts, template, wd, config, collection = {}) {
     } else if (!_.isNil(matter)) {
       const _data = Object.assign({}, data, {
         matter,
-        data: {
-          title: matter.data.title,
-          url: matter.data.fullUrl
-        }
+        data: Object.assign({}, {site: config.site}, matter.data)
       });
       const contents = _.template(templates[type])(_data);
       return new File({

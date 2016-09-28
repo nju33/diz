@@ -13,17 +13,17 @@ export default class Collection {
   add(name, matter) {
     const data = _.get(matter, `data.${name}`);
     if (_.isArray(data)) {
-      for (const item of _.flatten([data])) {
-        this.update(this.path(name, item), matter);
+      for (const item of _.flatten(data)) {
+        this.update(this.path({name, item}), matter);
       }
     } else {
       !_.isNil(data) ?
-        this.update(this.path(name, data), matter) :
-        this.update(this.path(name), matter);
+        this.update(this.path({name, item: data}), matter) :
+        this.update(this.path({name}), matter);
     }
   }
 
-  _path(name, item) {
+  _path({name, item}) {
     let path = this.prefixPath(name);
     if (!_.isNil(item)) {
       path = this.suffixPath(path, name, item);
@@ -51,7 +51,7 @@ export default class Collection {
     });
   }
 
-  getEntryComponents(t, {}) {
+  getEntryComponents(t) {
     return _.reduce(this.frontmatter, (components, data, name) => {
       if (!Boolean(_.get(data, 'collection'))) {
         return components;

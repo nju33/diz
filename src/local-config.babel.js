@@ -12,7 +12,13 @@ const defaults = {
     lang: '',
     url: '',
     description: '',
-    url: '',
+    image: '',
+    copyright: '',
+    author: {
+      name: '',
+      email: '',
+      link: ''
+    },
     twitter: {
       username: ''
     },
