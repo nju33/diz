@@ -26,6 +26,9 @@ const defaults = {
       username: ''
     }
   },
+
+  page: {},
+
   frontmatter: {
     title: {
       default: '',
@@ -50,6 +53,11 @@ export default {
 
       if (!_.isNil(siteConfig.site)) {
         const key = 'site';
+        Object.assign(config[key], siteConfig[key]);
+      }
+
+      if (!_.isNil(siteConfig.page)) {
+        const key = 'page'
         Object.assign(config[key], siteConfig[key]);
       }
 
