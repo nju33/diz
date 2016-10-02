@@ -23,7 +23,11 @@ export default class DizMatter {
     this.data.category = parsed[0];
     this.data.url = `/entries/${this.data.name}`;
     this.data.fullUrl = path.join(site.url, this.data.url);
-    this.content = compiler()(matter.content);
+    if (_.isFunction(compiler)) {
+      this.content = compiler(matter.content);
+    } else {
+      this.content = matter.content;
+    }
     this.collectionNames = ['entry'];
     this.warning = [];
 
