@@ -114,7 +114,7 @@ function diz(wd, opts) {
 }
 
 function getEntryFiles(wd) {
-  return glob.sync(path.resolve(wd, '**/entry.md'));
+  return glob.sync(path.resolve(wd, '**/entry.+(html|md)'));
 }
 
 function preRender(opts, template, wd, config, collection = {}) {
