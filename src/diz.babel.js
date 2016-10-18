@@ -31,6 +31,15 @@ const defaultOpts = {
 function diz(wd, opts) {
   opts = Object.assign({}, defaultOpts, opts);
 
+  const base = opts.base || wd;
+  let relative = '';
+  if (!_.isNil(opts.base)) {
+    relative = wd.replace(new RegExp(`^\.?\/?${opts.base}\/?`), '');
+  }
+
+  console.log(base);
+  console.log(relative);
+
   const workingDirname = path.basename(wd);
   const config = localConfig.get(wd);
   const collection = new Collection(config.frontmatter, {
