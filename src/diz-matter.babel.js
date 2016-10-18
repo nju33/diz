@@ -4,23 +4,24 @@ import chalk from 'chalk';
 import grayMatter from 'gray-matter';
 
 export default class DizMatter {
-  static parseDir(filePath, workingDir) {
+  static parseDir(wd, filePath, workingDir) {
     const pathArr = path.dirname(filePath).split(path.sep);
+    const splited = wd.split('/');
     const len = pathArr.length;
     const name = pathArr[len - 1] !== workingDir ? pathArr[len - 1] : null;
     const category = pathArr[len - 2] !== workingDir ? pathArr[len - 2] : null;
-    return [category, name];
+    return [(_.includes(splited, category) ? null : category), name];
   }
 
-  constructor({workingDir, filepath, compiler, config}) {
-    const parsed = DizMatter.parseDir(filepath, workingDir);
+  constructor(wd, {workingDir, filepath, compiler, config}) {
+    const parsed = DizMatter.parseDir(wd, filepath, workingDir);
     const {site, frontmatter} = config;
     const matter = grayMatter.read(filepath);
 
     this.id = _.uniqueId();
     this.data = matter.data;
     this.data.name = parsed[1];
-    this.data.category = parsed[0];
+    this.data.category = parsed[0] || null;
     this.data.url = `/entries/${this.data.name}`;
     this.data.fullUrl = path.join(site.url, this.data.url);
     if (_.isFunction(compiler)) {
