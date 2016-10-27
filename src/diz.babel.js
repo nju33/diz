@@ -31,6 +31,12 @@ const defaultOpts = {
 function diz(wd, opts) {
   opts = Object.assign({}, defaultOpts, opts);
 
+  const base = opts.base || wd;
+  let relative = '';
+  if (!_.isNil(opts.base)) {
+    relative = wd.replace(new RegExp(`^\.?\/?${opts.base}\/?`), '');
+  }
+
   const workingDirname = path.basename(wd);
   const config = localConfig.get(wd);
   const collection = new Collection(config.frontmatter, {
@@ -39,7 +45,7 @@ function diz(wd, opts) {
   const filepaths = getEntryFiles(wd);
 
   for (const filepath of filepaths) {
-    const matter = new DizMatter({
+    const matter = new DizMatter(wd, {
       compiler: opts.compiler,
       workingDirname,
       filepath,
@@ -71,7 +77,7 @@ function diz(wd, opts) {
   });
   template.changeContentGenerator();
 
-  const render = preRender(opts, template, wd, config, collection);
+  const render = preRender(opts, template, base, relative, config, collection);
   const ordered = {};
   const files = [];
   _.forEach(collection.list, (list, name) => {
@@ -117,7 +123,7 @@ function getEntryFiles(wd) {
   return glob.sync(path.resolve(wd, '**/entry.+(html|md)'));
 }
 
-function preRender(opts, template, wd, config, collection = {}) {
+function preRender(opts, template, base, relative, config, collection = {}) {
   return function render({
     type,
     label,
@@ -138,8 +144,8 @@ function preRender(opts, template, wd, config, collection = {}) {
       });
       const contents = _.template(templates[type])(_data);
       return new File({
-        base: wd,
-        path: path.join(wd, dirPath, 'index.html'),
+        base,
+        path: path.join(base, relative, dirPath, 'index.html'),
         contents: (() => {
           try {
             return Buffer.from(contents);
@@ -155,8 +161,8 @@ function preRender(opts, template, wd, config, collection = {}) {
       });
       const contents = _.template(templates[type])(_data);
       return new File({
-        base: wd,
-        path: path.join(wd, dirPath, 'index.html'),
+        base,
+        path: path.join(base, relative, dirPath, 'index.html'),
         contents: (() => {
           try {
             return Buffer.from(contents);
