@@ -1,7 +1,7 @@
 {
   "name": "diz",
   "version": "0.0.0",
-  "description": "",
+  "description": "A static site generator",
   "main": "./diz.js",
   "scripts": {
     "example": "NtoODE_DEBUG=diz,renderer,theme,blog,post node -r babel-register example/transform.js 2>&1;: 0",
@@ -12,7 +12,11 @@
     "pretest": "yarn build",
     "test": "xo && NODE_DEBUG=renderer,theme,blog,post ava -vw"
   },
-  "keywords": [],
+  "keywords": [
+    "diz",
+    "static-site",
+    "generator"
+  ],
   "author": "nju33 <nju33.ki@gmail.com>",
   "license": "MIT",
   "dependencies": {

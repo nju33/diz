@@ -1,97 +1,107 @@
 # diz
 
-Static site generator with gulp
+A static site generator.
 
----
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-## File organization
+## Install
 
+```bash
+$ yarn add -D diz gulp
+$ npm i -D diz gulp
 ```
-└─ root
-   ├─ site.config.js
-   ├─ <category1>
-   │  └─ <slug>
-   │     └─ entry.{md,html}
-   └─ <category2>
-      └─ <slug>
-         └─ entry.{md,html}
-```
-
-## Site config
-
-- #### `site` {Object}
-  - `name` {String}
-    > specify site name
-  - `description` {String}
-    > specify site description
-  - `url` {String}
-    > specify site url
-  - `lang` {String}
-    > specity your lang
-  - `locale` {String}
-    > specity your locale
-  - `image` {String}
-    > specity site image
-  - `copyright` {String}
-    > specity copyright
-  - `author` {String|Object}
-    > specity author
-  - `twitter` {String|Object}
-    > specity twitter config
-  - `facebook` {String|Object}
-    > specity facebook config
-
-- #### `frontmatter` {Object}
-  - `<unique keys...>` {Object}
-    - `default` {String|Function}
-      > specify default value of this key
-    - `required` {Boolean}
-      > wheter to require
-    - `basePath` {String}
-      > specify new path, if you wanna change default path  
-      default: plural of this key
-    - `collection` {Boolean}
-      > whether to collect
-    - `colllectionFormat` {Function}
-      > When specified, formatted value used actually
-
-- #### `layout` {Object}
-  - `root` {Function}
-  - `head` {Function}
-  - `bodyHead` {Function}
-  - `bodyLoopHead` {Function}
-  - `bodySingleHead` {Function}
-  - `bodyFoot` {Function}
-  - `bodyLoopFoot` {Function}
-  - `bodySingleFoot` {Function}
-  - `sidebarHead` {Function}
-  - `sidebarFoot` {Function}
-  - `loopHead` {Function}
-  - `loopFoot` {Function}
-  - `singleHead` {Function}
-  - `singleFoot` {Function}
 
 ## Example
 
 ```js
-gulp.task('diz', () => {
-  diz('src/root').pipe(gulp.dest('local/'))
+import gulp from 'gulp';
+import Diz from 'diz';
+
+const renderer = new Diz({
+  config: {
+    // Required
+    // Specify directory containing blog directory
+    base: __dirname,
+
+    // When ${__dirname}/+(blog1|blog2|blog3)/
+    // ignore ${__dirname}/blog2
+    // blog1, blog3 are processed
+    ignores: ['blog2']
+  },
+  sites: {
+    // Specify blog1 information
+    blog1: {
+      title: 'title1',
+      description: 'description1',
+      url: 'http://example1.com'
+    }
+
+    // Specify for each blog directory
+    // (e.g.)
+    // blog3: {
+    //   title: '...'
+    //   description: '...'
+    //   url: '...'
+    // }
+  },
+
+  // default
+  // compiler: marked,
+  // plugins: [
+  //   new CollectionPageGenerator({pager: 1})
+  // ]
 });
-gulp.wask('watch', ['diz'], () => {
-  gulp.watch('src/root/**/*.+(html|md|js)', ['diz']);
+
+renderer.load().then(({render, bundle}) => {
+  // HTML files
+  render().pipe(gulp.dest('example/dist/'));
+  // bundle JS files with webpack
+  bundle((err, stream) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    return stream.pipe(gulp.dest('example/dist/'));
+  });
 });
+
 ```
 
-## API
+## File organization
 
-- #### `diz`{Function}
-  - `wd`{String}
-  - `opts`{Object}
-    - `compiler`{Function}
-    - `orderEntries`{Function}
-    - `orderCategories`{Function}
-    - `order<CollectionName>`{Function}
+```
+└─ base
+   ├─ <blog1>
+   │   ├─ 0_post.md
+   │   ├─ 1_post.md
+   │   ├─ n_post.md
+   ├─ <blog2>
+   │   ├─ 0_post.md
+   │   ├─ 1_post.md
+   │   ├─ n_post.md
+   ├─ <...>
+```
 
-## Features
+## Options
 
-todo
+### config
+
+- `base`
+- `ignores`
+
+### sites
+
+#### site
+
+- `title`
+- `description`
+- `url`
+- ...
+
+### compiler(def:)
+
+### plugins
+
+## License
+
+MIT
