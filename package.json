@@ -26,6 +26,7 @@
     "core-decorators": "^0.15.0",
     "core-js": "^2.4.1",
     "diz-plugin-collection-page-generator": "^0.0.2",
+    "diz-theme-minimalist": "^0.0.1",
     "event-stream": "^3.3.4",
     "glob": "^7.0.5",
     "gray-matter": "^2.0.2",
