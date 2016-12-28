@@ -7,7 +7,7 @@
     "example": "NtoODE_DEBUG=diz,renderer,theme,blog,post node -r babel-register example/transform.js 2>&1;: 0",
     "start": "gulp watch",
     "postinstall": "yarn build",
-    "_postpublish": "rm -rf dist && gulp babel",
+    "prepublish": "yarn build",
     "build": "NODE_ENV=production gulp babel",
     "pretest": "yarn build",
     "test": "xo && NODE_DEBUG=renderer,theme,blog,post ava -vw"
