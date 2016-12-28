@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 import debug from 'gulp-debug';
-import {Diz} from 'diz';
+import Diz from 'diz-theme-minimalist';
 import CollectionPageGenerator from 'diz-plugin-collection-page-generator';
 
 const renderer = new Diz({
