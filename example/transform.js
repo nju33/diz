@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import debug from 'gulp-debug';
 // import Diz from 'diz-theme-minimalist';
 // import CollectionPageGenerator from 'diz-plugin-collection-page-generator';
-import Minimalist from 'diz-theme-minimalist';
+// import Minimalist from 'diz-theme-minimalist';
 
 import Diz from '../lib/diz';
 
@@ -10,14 +10,14 @@ const opts = {
   base: 'example'
 };
 
-const themeConfig = Diz.getTheme('diz-theme-minimalist');
-console.log(themeConfig.getPath('jsx'));
+// const themeConfig = Diz.getTheme('diz-theme-minimalist');
+// console.log(themeConfig.getPath('jsx'));
 
 Diz.load(opts).then(roots => {
   const renderer = new Diz({
-    roots,
-    theme: Minimalist,
-    themeConfig
+    roots
+    // theme: Minimalist,
+    // themeConfig
   });
 
   const a = renderer.render('base')
