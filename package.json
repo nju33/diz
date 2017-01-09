@@ -17,6 +17,9 @@
     "static-site",
     "generator"
   ],
+  "bin": {
+    "diz": "./bin/cli"
+  },
   "author": "nju33 <nju33.ki@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -47,6 +50,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "string-template": "^1.0.0",
+    "uuid": "^3.0.1",
     "validated": "^0.8.4",
     "vinyl": "^1.2.0",
     "webpack": "2.2.0-rc.1",
