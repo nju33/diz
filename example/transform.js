@@ -14,7 +14,7 @@ Diz.load(opts).then(roots => {
     .pipe(debug())
     .pipe(gulp.dest('example/dist/'));
 
-  renderer.bundle('diz-theme-minimalist/theme').then(stream => {
+  renderer.bundle().then(stream => {
     stream
       .pipe(debug())
       .pipe(gulp.dest('example/dist/'));
