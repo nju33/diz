@@ -2258,13 +2258,16 @@ diz-plugin-atom-feed@^0.0.1:
     validated "^0.9.0"
     xmlbuilder "^8.2.2"
 
-diz-plugin-collection-page-generator@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/diz-plugin-collection-page-generator/-/diz-plugin-collection-page-generator-0.0.6.tgz#0a1506b14a3fd566545daa2b57e0269211c80e20"
+diz-plugin-collection-page-generator@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/diz-plugin-collection-page-generator/-/diz-plugin-collection-page-generator-0.1.0.tgz#5a51d763c6a1d1c63262003ecbef2076495d50e5"
   dependencies:
     lodash.chunk "^4.2.0"
     lodash.flatten "^4.4.0"
+    lodash.topairs "^4.3.0"
     pluralize "^3.1.0"
+    pupa "^1.0.0"
+    string-template "^1.0.0"
     validated "^0.9.0"
 
 diz-theme-minimalist@^0.0.2:
@@ -4308,6 +4311,10 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
+lodash.topairs@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/lodash.topairs/-/lodash.topairs-4.3.0.tgz#3b6deaa37d60fb116713c46c5f17ea190ec48d64"
+
 lodash.uniq@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
@@ -5435,6 +5442,10 @@ punycode@1.3.2:
 punycode@^1.2.4, punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
+
+pupa@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pupa/-/pupa-1.0.0.tgz#9a9568a5af7e657b8462a6e9d5328743560ceff6"
 
 q@^1.1.2:
   version "1.4.1"
