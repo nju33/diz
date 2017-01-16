@@ -1,1 +1,1 @@
-module.exports = require('diz-theme-minimalist');
+module.exports = require('./dist/diz').default;

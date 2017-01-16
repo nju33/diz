@@ -4,7 +4,7 @@ import {getMatter, getSlug} from '../lib/helpers';
 
 test('getMatter', async t => {
   const matter = await getMatter(
-    path.join(__dirname, 'fixtures/blog/a.md')
+    path.join(__dirname, 'fixtures/success/blog/a.md')
   );
 
   t.is(matter.data.title, 'test');

@@ -1,48 +1,46 @@
 import path from 'path';
 import test from 'ava';
-import {spy} from 'sinon';
-import Directory from '../lib/directory';
+import Root from '../dist/root';
+import Directory from '../dist/directory';
 
-test.beforeEach(t => {
-  t.context.dir = new Directory('blog', {
-    sites: {
-      blog: 'yes'
-    },
-    compiler(a) {
-      return a;
-    }
+test('load posts', async t => {
+  const root = new Root(`${__dirname}/fixtures/success/blog/`, {
+    url: 'http://example.com'
   });
+  const posts = await Directory.load(root);
+
+  t.is(posts.length, 3);
 });
 
-test('site prop', t => {
-  const {dir} = t.context;
-  t.is(dir.site, 'yes');
+test('defualt constructor', t => {
+  const name = 'test';
+  const dir = new Directory({root, path, name});
 
-  const dir2 = new Directory('', dir);
-  t.is(dir2.site, 'yes');
+  t.true(dir.renders);
 });
 
-test('getPosts', t => {
-  const {dir} = t.context;
-  dir.site = {};
-  dir.site.url = 'a';
-  dir.getPosts({
-    base: path.join(__dirname, 'fixtures')
-  }).then(() => {
-    t.is(dir.posts.length, 3);
+test('createPost', t => {
+  const name = 'test';
+  const root = new Root('', {url: 'http://example.com'});
+  const dir = new Directory({
+    root,
+    path,
+    name
   });
-});
 
-test('renderPosts', t => {
-  const {dir} = t.context;
-  const render = spy();
-  const toFile = spy();
+  const type = 'LIST';
+  const slug = 'test';
+  const data = {};
+  const contents = '';
 
-  dir.posts = Array(3).fill({slug: 'a', render, toFile});
-  dir.renderPosts();
+  const post = dir.createPost({
+    type,
+    slug,
+    data,
+    contents
+  });
 
-  t.true(render.called);
-  t.true(toFile.called);
-  t.true(Object.prototype.hasOwnProperty.call(dir.posts[0], 'prev'));
-  t.true(Object.prototype.hasOwnProperty.call(dir.posts[0], 'next'));
+  t.is(dir.posts.length, 1);
+  t.is(post.root, root);
+  t.is(post.directory, dir);
 });

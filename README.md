@@ -84,23 +84,20 @@ renderer.load().then(({render, bundle}) => {
 
 ## Options
 
-### config
+- `base: string`
 
-- `base`
-- `ignores`
+## Config
 
-### sites
+- `title: string`
+- `description: string`
+- `url: string`
+- `compile(x: string): string`
+- `plugins: plugin[]`
 
-#### site
+## CLI
 
-- `title`
-- `description`
-- `url`
-- ...
-
-### compiler(def:)
-
-### plugins
+- `diz generate {id}`
+  Generate urn id
 
 ## License
 
