@@ -2270,16 +2270,25 @@ diz-plugin-collection-page-generator@^0.1.0:
     string-template "^1.0.0"
     validated "^0.9.0"
 
-diz-theme-minimalist@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/diz-theme-minimalist/-/diz-theme-minimalist-0.1.0.tgz#565ad63d0c509127b9cbf6ee0f0bb4d90ad7cfd3"
+diz-theme-minimalist@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/diz-theme-minimalist/-/diz-theme-minimalist-0.1.1.tgz#a337f7c69edc314392a0e21759ffaa793c07a14f"
   dependencies:
+    diz-theme "^0.0.1"
     lodash.isnull "^3.0.0"
     lodash.omitby "^4.6.0"
     react "^15.4.1"
     react-burger-menu "^1.10.10"
     react-dom "^15.4.1"
     string-template "^1.0.0"
+
+diz-theme@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/diz-theme/-/diz-theme-0.0.1.tgz#0a1fa0518cb18a606e03234e7772c2dae17c7772"
+  dependencies:
+    babel-loader "^6.2.10"
+    babel-plugin-transform-runtime "^6.15.0"
+    babel-preset-react "^6.16.0"
 
 doctrine@1.5.0, doctrine@^1.2.2:
   version "1.5.0"
