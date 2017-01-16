@@ -2248,6 +2248,16 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+diz-plugin-atom-feed@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/diz-plugin-atom-feed/-/diz-plugin-atom-feed-0.0.1.tgz#7aa3720c58b4287e8340b7054a784901c7d97b1d"
+  dependencies:
+    lodash.isnull "^3.0.0"
+    lodash.omitby "^4.6.0"
+    uuid "^3.0.1"
+    validated "^0.9.0"
+    xmlbuilder "^8.2.2"
+
 diz-plugin-collection-page-generator@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/diz-plugin-collection-page-generator/-/diz-plugin-collection-page-generator-0.0.6.tgz#0a1506b14a3fd566545daa2b57e0269211c80e20"
@@ -4217,6 +4227,10 @@ lodash.isfinite@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/lodash.isfinite/-/lodash.isfinite-3.3.2.tgz#fb89b65a9a80281833f0b7478b3a5104f898ebb3"
 
+lodash.isnull@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isnull/-/lodash.isnull-3.0.0.tgz#fafbe59ea1dca27eed786534039dd84c2e07c56e"
+
 lodash.isplainobject@^4.0.4:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
@@ -4248,6 +4262,10 @@ lodash.memoize@^4.1.0, lodash.memoize@^4.1.2:
 lodash.omit@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
+
+lodash.omitby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.omitby/-/lodash.omitby-4.6.0.tgz#5c15ff4754ad555016b53c041311e8f079204791"
 
 lodash.pick@^4.2.1, lodash.pick@^4.4.0:
   version "4.4.0"
@@ -6903,6 +6921,10 @@ xdg-basedir@^2.0.0:
 xml@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
+
+xmlbuilder@^8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
 
 xmlhttprequest-ssl@1.5.3:
   version "1.5.3"

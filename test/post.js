@@ -1,58 +1,49 @@
 import test from 'ava';
-import Post from '../lib/post';
+import marked from 'marked';
+import Root from '../dist/root';
+import Directory from '../dist/directory';
+import Post from '../dist/post';
 
-test('currentPage is 1', t => {
-  const post = new Post({
-    site: {url: ''},
-    compiler(a) {
-      return a;
+test.beforeEach(t => {
+  const root = new Root('foo/bar', {
+    url: 'http://example.com',
+    compile(contents) {
+      return marked(contents);
     }
-  }, 'a', '', {}, 1);
-  t.is(post.breadcrumb.length, 3);
+  });
+  const directory = new Directory({name: 'hoge'});
+  t.context.post = new Post({
+    root,
+    directory,
+    type: 'POST',
+    slug: 'test',
+    data: {},
+    contents: 'aiueo'
+  });
 });
 
-test('currentPage is 2', t => {
-  const post = new Post({
-    site: {url: ''},
-    compiler(a) {
-      return a;
-    }
-  }, 'a', '', {}, 2);
-  t.is(post.breadcrumb.length, 4);
+test('compile', async t => {
+  const {post} = t.context;
+  await post.compile();
+
+  t.is(post.absURL, '/hoge/test/');
+  t.is(post.original, 'aiueo');
+  t.is(post.contents, '<p>aiueo</p>\n');
+  t.is(post.contentsBeginning, post.contents);
+
+  t.is(post.id, 'bar:hoge:test');
 });
 
-test('interpretateName', t => {
-  let post = new Post({
-    site: {url: ''},
-    compiler(a) {
-      return a;
-    }
-  }, 'a:1', '', {}, 1);
+test('getContentsBeginning', t => {
+  const {post} = t.context;
 
-  t.is(post.interpretateName.length, 1);
+  const beginning = post.getContentsBeginning(marked(`
+aiueo
 
-  post = new Post({
-    site: {url: ''},
-    compiler(a) {
-      return a;
-    }
-  }, 'a:2', '', {}, 1);
-  t.is(post.interpretateName.length, 2);
-});
+<!--break-->
 
-test('contentsBeginning', t => {
-  const post = new Post({
-    site: {url: ''},
-    compiler(a) {
-      return a;
-    }
-  }, 'a:2', `
-test
+kakiku
+  `.trim()));
 
-<!-- break -->
-
-test
-  `.trim(), {}, 1);
-
-  t.is(post.contentsBeginning.trim(), 'test');
+  t.is(beginning, '<p>aiueo</p>');
 });
