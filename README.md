@@ -78,6 +78,24 @@ The config data changes depending on the plugin and theme you are using.
 - `diz generate date`
   <div>Generate just date</div>
 
+## Themes
+
+- [Minimalist](https://github.com/nju33/diz-theme-minimalist)
+
+### How to create a theme
+
+1. Install [diz-theme](https://github.com/nju33/diz-theme)
+2. use it in parent class (e.g.) `class extends DizTheme`
+
+For more information, click [here](https://github.com/nju33/diz-theme#readme)
+
+## Plugins
+
+- [collection page generator](https://github.com/nju33/diz-plugin-collection-page-generator)
+  <div>Create a list pages</div>
+- [atom feed](https://github.com/nju33/diz-plugin-atom-feed)
+  <div>Create atom feed</div>
+
 ## License
 
 The MIT License (MIT)
