@@ -1,3 +1,6 @@
+## 0.1.4
+- Del postinstall from package.json because install fail
+
 ## 0.1.3
 - Implement a method to acquire siblings
   - Add `getSibling` method into root instance
