@@ -1,3 +1,7 @@
+## 0.1.3
+- Implement a method to acquire siblings
+  - Add `getSibling` method into root instance
+
 ## 0.1.2
 - Fix webpack.resolve.modules when installed side
 

@@ -95,6 +95,8 @@ For more information, click [here](https://github.com/nju33/diz-theme#readme)
   <div>Create a list pages</div>
 - [atom feed](https://github.com/nju33/diz-plugin-atom-feed)
   <div>Create atom feed</div>
+- [ref](https://github.com/nju33/diz-plugin-ref)
+  <div>Override post.url</div>
 
 ## License
 
