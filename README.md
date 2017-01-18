@@ -36,20 +36,20 @@ However, in order to be processed, it is necessary to put config.js directly und
 └─ <base path>
    │   // blog1 is processed
    ├─ <blog1>
-   │   ├─ 0_post.md
-   │   ├─ 1_post.md
-   │   ├─ n_post.md
+   │   ├─ 0_hello-world.md
+   │   ├─ 1_getting-started.md
+   │   ├─ n_***.md
    │   ├─ config.js
    │
    │   // blog2 isn't processed because there is no config.js
    ├─ <blog2>
-   │   ├─ 0_post.md
-   │   ├─ 1_post.md
-   │   ├─ n_post.md
+   │   ├─ 0_hello-world.md
+   │   ├─ 1_getting-started.md
+   │   ├─ n_***.md
    ├─ <...>
 ```
 
-In `config.js`, describe meta information about the site, theme information, compilation method and so on.
+In `config.js`, describe meta information about the site, theme information, compilation method and so on. Also, the string up to `_` in each .md file is removed. It just uses to adjust the order of post files.
 
 For example, it will be like this.
 
