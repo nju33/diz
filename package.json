@@ -3,6 +3,7 @@
   "version": "0.1.3",
   "description": "A static site generator",
   "main": "./diz.js",
+  "repository": "nju33/diz",
   "scripts": {
     "example": "NtoODE_DEBUG=diz,renderer,theme,blog,post node -r babel-register example/transform.js 2>&1;: 0",
     "start": "gulp watch",
