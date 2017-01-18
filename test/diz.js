@@ -19,8 +19,27 @@ test('not throw when found config.js and it ends normally', async t => {
   const dir = roots[0].mainDirectory;
 
   t.is(roots.length, 1);
+  t.truthy(roots[0].getSibling);
   t.is(renderer.roots.length, 1);
   t.is(dir.posts.length, 3);
+});
+
+test('getSibling', async t => {
+  const roots = await Diz.load({
+    base: './test/fixtures/success/'
+  });
+  const renderer = new Diz({roots});
+
+  renderer.roots[0].mainDirectory.posts[0].data.ref = 'blog2';
+  renderer.roots.push({
+    name: 'blog2',
+    config: {
+      url: 'http://foo.com'
+    }
+  });
+
+  t.is(typeof roots[0].getSibling('blog2'), 'object');
+  t.is(typeof roots[0].getSibling('blog9'), 'undefined');
 });
 
 test('render method', async t => {
