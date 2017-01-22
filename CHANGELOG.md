@@ -1,3 +1,6 @@
+## 0.1.6
+- Temporary fix that replace `&amp;lt;` -> `&lt;` etc for magu-plugin-hljs
+
 ## 0.1.4
 - Del postinstall from package.json because install fail
 
