@@ -1,6 +1,6 @@
 {
   "name": "diz",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A static site generator",
   "main": "./diz.js",
   "repository": "nju33/diz",
