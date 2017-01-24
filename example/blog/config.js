@@ -9,6 +9,7 @@ module.exports = {
   description: 'description',
   url: 'http://example.com/base',
   author: 'nju33',
+  reverse: true,
   theme: {
     Renderer,
     config: {}

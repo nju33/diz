@@ -1,3 +1,7 @@
+## 0.1.6
+- Making the meaning of reverse of config
+  - Set to true to reverse posts
+
 ## 0.1.4
 - Del postinstall from package.json because install fail
 
