@@ -7,7 +7,7 @@ module.exports = {
   id: 'urn:uuid:b3af7780-d5a5-11e6-bf38-dfb9af9b5ac6',
   title: 'blog',
   description: 'description',
-  url: 'http://example.com/base',
+  url: 'http://example.com',
   author: 'nju33',
   reverse: true,
   theme: {
@@ -18,7 +18,7 @@ module.exports = {
     return marked(contents);
   },
   plugins: [
-    new CollectionPageGenerator({pager: 1}),
+    new CollectionPageGenerator({pager: 30}),
     // new CollectionPageGenerator({pager: 1, target: 'categories'}),
     new AtomFeed()
   ]

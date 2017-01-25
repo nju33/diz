@@ -2248,9 +2248,9 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
-diz-plugin-atom-feed@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/diz-plugin-atom-feed/-/diz-plugin-atom-feed-0.0.1.tgz#7aa3720c58b4287e8340b7054a784901c7d97b1d"
+diz-plugin-atom-feed@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/diz-plugin-atom-feed/-/diz-plugin-atom-feed-0.0.2.tgz#0fdde4cfe3cdc55993bcc08b31c99697aa921790"
   dependencies:
     lodash.isnull "^3.0.0"
     lodash.omitby "^4.6.0"
@@ -2270,17 +2270,17 @@ diz-plugin-collection-page-generator@^0.1.0:
     string-template "^1.0.0"
     validated "^0.9.0"
 
-diz-theme-minimalist@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/diz-theme-minimalist/-/diz-theme-minimalist-0.1.1.tgz#a337f7c69edc314392a0e21759ffaa793c07a14f"
+diz-theme-minimalist@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/diz-theme-minimalist/-/diz-theme-minimalist-0.1.3.tgz#ae5615ece897bb16f146b87dd5bb2591cee3d59b"
   dependencies:
     diz-theme "^0.0.1"
     lodash.isnull "^3.0.0"
     lodash.omitby "^4.6.0"
+    pupa "^1.0.0"
     react "^15.4.1"
     react-burger-menu "^1.10.10"
     react-dom "^15.4.1"
-    string-template "^1.0.0"
 
 diz-theme@^0.0.1:
   version "0.0.1"

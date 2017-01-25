@@ -1,3 +1,6 @@
+## 0.2.0
+- Implement that can be nest structuring and inherit the config
+
 ## 0.1.6
 - Making the meaning of reverse of config
   - Set to true to reverse posts

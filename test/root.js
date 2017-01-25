@@ -5,7 +5,7 @@ import Root from '../dist/root';
 
 test('getRootpaths', async t => {
   const matches = await Root.getRootpaths({base: './test/fixtures'});
-  t.is(matches.length, 2);
+  t.is(matches.length, 3);
 });
 
 test('getConf', async t => {
@@ -16,6 +16,7 @@ test('getConf', async t => {
 test('constructor', async t => {
   const config = await Root.getConf(`${__dirname}/fixtures/success/blog/`);
   const root = new Root(`${__dirname}/fixtures/success/blog/`, config);
+  root.postProcess();
 
   t.truthy(root.name);
   t.is(root.name, 'blog');

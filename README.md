@@ -2,7 +2,7 @@
 
 A static site generator.
 
-[![Build Status](https://travis-ci.org/nju33/diz.svg?branch=master)](https://travis-ci.org/nju33/diz) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+[![Build Status](https://travis-ci.org/nju33/diz.svg?branch=master)](https://travis-ci.org/nju33/diz) [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo) ![Dependencies Status](https://david-dm.org/nju33/diz.svg)
 
 ## Install
 
@@ -36,15 +36,15 @@ However, in order to be processed, it is necessary to put config.js directly und
 └─ <base path>
    │   // blog1 is processed
    ├─ <blog1>
-   │   ├─ 0_hello-world.md
-   │   ├─ 1_getting-started.md
+   │   ├─ 0_getting-started.md
+   │   ├─ 1_hello-world.md
    │   ├─ n_***.md
    │   ├─ config.js
    │
    │   // blog2 isn't processed because there is no config.js
    ├─ <blog2>
-   │   ├─ 0_hello-world.md
-   │   ├─ 1_getting-started.md
+   │   ├─ 0_getting-started.md
+   │   ├─ 1_hello-world.md
    │   ├─ n_***.md
    ├─ <...>
 ```
@@ -59,13 +59,47 @@ const Plugin = require('diz-plugin-yyy');
 const marked = require('marked');
 
 module.exports = {
-  title: 'blog title',              // required
-  description: 'blog description',  // required
-  url: 'http://example.com/',       // required
-  author: 'nju33',                  // option
-  theme: {Renderer, config: {}},    // required
-  compile: marked,                  // option
-  plugins: [new Plugin()]           // option
+  //* required
+  title: 'blog title',
+  url: 'http://blog.com/',
+  //* option
+  description: 'blog description',
+  author: 'nju33',
+
+  //* option
+  //  Whether to reverse the order of n_*.md files
+  reverse: false
+
+  //* option
+  //  When parent directory name is specified,
+  //  the following happens
+  //
+  //  1. Inherit config.js of the specified directory
+  //  2. Becomes part of the blog of the specified directory
+  //
+  parent: '...'
+  //* option
+  //  Overwrite inherited config
+  override: {...}
+
+  //* required
+  theme: {
+    //* required
+    //  The theme itself (.jsx etc)
+    Renderer,
+    //* option
+    //  Theme's config
+    config: {}
+  },
+
+  //* option
+  //  Md file conversion function
+  //  (contents: string): string
+  compile: marked,
+
+  //* option
+  //  Array of used plugins
+  plugins: [new Plugin()]
 };
 ```
 

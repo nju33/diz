@@ -32,6 +32,7 @@ test('getSibling', async t => {
 
   renderer.roots[0].mainDirectory.posts[0].data.ref = 'blog2';
   renderer.roots.push({
+    originalName: 'blog2',
     name: 'blog2',
     config: {
       url: 'http://foo.com'
@@ -75,4 +76,11 @@ test('bundle method', async t => {
     t.is(file.history[0], 'blog/scripts/bundle.js');
     t.true(Vinyl.isVinyl(file));
   }));
+});
+
+test('Inherit config', async t => {
+  const roots = await Diz.load({base: './test/fixtures/override'});
+  const renderer = new Diz({roots});
+
+  t.is(renderer.roots[1].config.title, 'b');
 });
